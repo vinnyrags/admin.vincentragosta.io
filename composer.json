@@ -1,0 +1,64 @@
+{
+  "name": "vincentragosta/devanime",
+  "description": "The parent theme used for all devanime projects.",
+  "authors": [
+    {
+      "name": "Vincent Ragosta",
+      "email": "vincentpasqualeragosta@gmail.com",
+      "homepage": "https://vincentragosta.io"
+    }
+  ],
+  "type": "project",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://packages.devanimecards.io"
+    }
+  ],
+  "config": {
+    "vendor-dir": "wp-content/vendor",
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "allow-plugins": {
+      "johnpbloch/wordpress-core-installer": true,
+      "composer/installers": true
+    },
+    "platform": {
+      "php": "8.2"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "DevAnime\\": "wp-content/themes/devanime/lib"
+    }
+  },
+  "require": {
+    "johnpbloch/wordpress": "*",
+    "roots/soil": "*",
+    "wp-sync-db/wp-sync-db": "dev-master",
+    "wp-sync-db/wp-sync-db-media-files": "dev-master",
+    "devanime/wordpress-seo-premium": "*",
+    "devanime/advanced-custom-fields-pro": "*",
+    "devanime/monkey-d-luffy": "dev-master",
+    "wpackagist-plugin/bu-versions": "*",
+    "wpackagist-plugin/classic-editor": "*",
+    "wpackagist-plugin/imagify": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "kint-php/kint": "^2.0",
+    "wp-sync-db/wp-sync-db-cli": "dev-master"
+  },
+  "minimum-stability": "dev",
+  "extra": {
+    "wordpress-install-dir": "wp",
+    "kint": {
+      "disable-helper-functions": true
+    }
+  },
+  "scripts": {}
+}
