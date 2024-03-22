@@ -3,21 +3,23 @@
 namespace DevAnime\Register\PostType;
 
 /**
- * class PostTypeAdminColumns
+ * Class PostTypeAdminColumns
  * @package DevAnime\Register\PostType
  */
 class PostTypeAdminColumns
 {
-    private $slug, $register, $columns = [];
+    private string $slug;
+    private PostTypeArguments $register;
+    private array $columns = [];
 
-    public function __construct($slug, PostTypeArguments $register)
+    public function __construct(string $slug, PostTypeArguments $register)
     {
         $this->slug = $slug;
         $this->register = $register;
         add_action('manage_edit-' . $this->slug . '_sortable_columns', [$this, 'sortableColumns']);
     }
 
-    public function init($columns)
+    public function init(array $columns): void
     {
         $this->columns = $columns;
         add_filter('manage_' . $this->slug . '_posts_columns', [$this, 'columnHeaders']);
@@ -32,84 +34,95 @@ class PostTypeAdminColumns
      *
      * @return array
      */
-    public function columnHeaders($columns)
+    public function columnHeaders(array $columns): array
     {
         $headers = $taxonomies = [];
 
         foreach ($this->columns as $slug => $column) {
-            $tax_slug = 'taxonomy-' . $slug;
-            $slug = array_key_exists($tax_slug, $columns) ? $tax_slug : $slug;
+            $taxSlug = 'taxonomy-' . $slug;
+            $slug = array_key_exists($taxSlug, $columns) ? $taxSlug : $slug;
             $headers[$slug] = is_array($column) ? $column['label'] : $column;
         }
         foreach ($columns as $slug => $column) {
-            if (strpos($slug, 'taxonomy-') !== false) {
+            if (str_contains($slug, 'taxonomy-')) {
                 $taxonomies[] = $slug;
             }
         }
-        $get_defaults = function ($arr) use ($columns, $headers) {
+
+        $getDefaults = function (array $arr) use ($columns, $headers): array {
             /* Pulls default columns out if exists in custom columns list */
             return array_intersect_key($columns, array_diff_key(array_flip($arr), $headers));
         };
 
         $columns = empty($headers) ?
             $columns :
-            array_merge($get_defaults([
-                'cb',
-                'title'
-            ]), $headers, $get_defaults($taxonomies), $get_defaults(['author', 'comments', 'date']));
-        $columns = apply_filters("devanime/admin_columns", $columns, $this->slug);
+            array_merge(
+                $getDefaults(['cb', 'title']),
+                $headers,
+                $getDefaults($taxonomies),
+                $getDefaults(['author', 'comments', 'date'])
+            );
 
-        return $columns;
+        return apply_filters("devanime/admin_columns", $columns, $this->slug);
     }
 
-    public function printAdminStyles()
+    public function printAdminStyles(): void
     {
         if (apply_filters('devanime/print_admin_styles', true)) {
             $screen = get_current_screen();
             if ($screen->id === 'edit-' . $this->slug) {
                 echo '<style type="text/css">';
-                echo apply_filters('devanime/print_admin_styles/' . $this->slug, '.column-thumbnail { text-align: center; width:75px; } .column-thumbnail img{ display:block;margin: 0 auto;max-width:100%; height:auto; }');
+                echo apply_filters(
+                    'devanime/print_admin_styles/' . $this->slug,
+                    '.column-thumbnail { text-align: center; width:75px; } .column-thumbnail img{ display:block;margin: 0 auto;max-width:100%; height:auto; }'
+                );
                 echo '</style>';
             }
         }
     }
 
-    public function columnContent($column_id, $post_id)
+    public function columnContent(string $columnId, int $postId): void
     {
-        if (!array_key_exists($column_id, $this->columns)) {
-            return false;
+        if (!array_key_exists($columnId, $this->columns)) {
+            return;
         }
-        $filter_base = 'devanime/admin_col';
+        $filterBase = 'devanime/admin_col';
         $content = '';
+
         /**
          * add_filter('devanime/admin_col', 'my_func', 10, 4);
-         * function my_func($content, $post_id, $column_id, $post_type){ return $content; }
+         * function my_func($content, $postId, $columnId, $postType){ return $content; }
          */
-        $content = apply_filters($filter_base, $content, $post_id, $column_id, $this->slug);
+        $content = apply_filters($filterBase, $content, $postId, $columnId, $this->slug);
+
         /**
          * add_filter('devanime/admin_col/{{column_key}}', 'my_func', 10, 3);
-         * function my_func($content, $post_id, $post_type){ return $content; }
+         * function my_func($content, $postId, $postType){ return $content; }
          */
-        $content = apply_filters($filter_base . '/' . $column_id, $content, $post_id, $this->slug);
+        $content = apply_filters($filterBase . '/' . $columnId, $content, $postId, $this->slug);
+
         /**
          * add_filter('devanime/admin_col/{{column_key}}/{{post_type}}', 'my_func', 10, 2);
-         * function my_func($content, $post_id){ return $content; }
+         * function my_func($content, $postId){ return $content; }
          */
-        $content = apply_filters($filter_base . '/' . $column_id . '/' . $this->slug, $content, $post_id);
-        if (is_array($this->columns[$column_id]) && !empty($this->columns[$column_id]['content_filter'])) {
+        $content = apply_filters($filterBase . '/' . $columnId . '/' . $this->slug, $content, $postId);
+
+        if (is_array($this->columns[$columnId]) && !empty($this->columns[$columnId]['content_filter'])) {
             /**
              * add_filter('my_custom_filter_name', 'my_func', 10, 2);
-             * function my_func($content, $post_id){ return $content; }
+             * function my_func($content, $postId){ return $content; }
              */
-            $content = apply_filters($this->columns[$column_id]['content_filter'], $content, $post_id);
+            $content = apply_filters($this->columns[$columnId]['content_filter'], $content, $postId);
         }
+
         if (is_array($content)) {
             $content = implode(' | ', $content);
         }
+
         echo $content;
     }
 
-    public function sortableColumns($columns)
+    public function sortableColumns(array $columns): array
     {
         if (!empty($this->register->args['taxonomies'])) {
             if (is_array($this->register->args['taxonomies'])) {
@@ -120,6 +133,7 @@ class PostTypeAdminColumns
                 $columns['taxonomy-' . $this->register->args['taxonomies']] = 'taxonomy-' . $this->register->args['taxonomies'];
             }
         }
+
         foreach ($this->columns as $key => $column) {
             if (!empty($column['sortable'])) {
                 $columns[$key] = $key;

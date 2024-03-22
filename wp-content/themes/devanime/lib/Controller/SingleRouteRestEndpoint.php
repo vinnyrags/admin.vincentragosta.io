@@ -2,7 +2,7 @@
 
 namespace DevAnime\Controller;
 
-use DevAnime\Controller\Rest\RestController;
+use DevAnime\Rest\Support\RestEndpoint;
 use WP_REST_Request;
 use WP_REST_Server;
 
@@ -10,7 +10,7 @@ use WP_REST_Server;
  * class SingleRouteRestController
  * @package DevAnime\Controller
  */
-abstract class SingleRouteRestController extends RestController
+abstract class SingleRouteRestEndpoint extends RestEndpoint
 {
     protected $route_path = '/';
     protected $route_methods = WP_REST_Server::READABLE;

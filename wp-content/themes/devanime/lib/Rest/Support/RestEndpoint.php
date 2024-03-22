@@ -1,6 +1,6 @@
 <?php
 
-namespace DevAnime\Controller\Rest;
+namespace DevAnime\Rest\Support;
 
 use DevAnime\Support\Util;
 use WP_Error;
@@ -9,17 +9,18 @@ use WP_REST_Server;
 
 /**
  * class RestController
- * @package DevAnime\Controller\Rest
+ * @package DevAnime\Rest\Support
  */
-abstract class RestController
+abstract class RestEndpoint
 {
-    protected $namespace;
-    protected $post_type_for_cap = 'post';
+    protected string $namespace;
+    protected string $post_type_for_cap = 'post';
     protected $read_cap = false;
     protected $edit_cap = false;
 
     public function __construct()
     {
+//        var_dump($this->namespace); exit();
         add_action('rest_api_init', [$this, 'registerRoutes']);
     }
 
@@ -28,6 +29,10 @@ abstract class RestController
 
     public function addRoutes($path, array $actions)
     {
+//        var_dump($path);
+//        var_dump($this->namespace);
+//        var_dump($actions);
+//        exit();
         return register_rest_route($this->namespace, $path, $actions);
     }
 
@@ -121,9 +126,9 @@ abstract class RestController
     {
         $type = Util::toSnakeCase((new \ReflectionClass($e))->getShortName());
         $response = new WP_Error('rest_' . $type, $e->getMessage(), ['status' => $e->getCode() ?: 500]);
-        if (!(defined('DISABLE_REST_ERROR_LOGGING') && DISABLE_REST_ERROR_LOGGING)) {
-            error_log($e->getMessage());
-        }
+//        if (!(defined('DISABLE_REST_ERROR_LOGGING') && DISABLE_REST_ERROR_LOGGING)) {
+//            error_log($e->getMessage());
+//        }
         return $response;
     }
 }

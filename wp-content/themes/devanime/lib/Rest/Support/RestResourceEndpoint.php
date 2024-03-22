@@ -1,14 +1,14 @@
 <?php
 
-namespace DevAnime\Controller\Rest;
+namespace DevAnime\Rest\Support;
 
 use WP_REST_Request;
 
 /**
- * class ResourceRestController
- * @package DevAnime\Controller\Rest
+ * class RestResourceEndpoint
+ * @package DevAnime\Rest\Support
  */
-abstract class ResourceRestController extends RestController
+abstract class RestResourceEndpoint extends RestEndpoint
 {
     protected $resource_path = '/';
 

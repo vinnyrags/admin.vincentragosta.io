@@ -8,46 +8,32 @@ namespace DevAnime\Support;
  */
 class JsonManifest
 {
-    private $manifest;
+    private array $manifest;
 
-    public function __construct($manifest_path)
+    public function __construct(string $manifestPath)
     {
-        if (file_exists($manifest_path)) {
-            $this->manifest = json_decode(file_get_contents($manifest_path), true);
-        } else {
-            $this->manifest = [];
-        }
+        $this->manifest = file_exists($manifestPath) ? json_decode(file_get_contents($manifestPath), true) : [];
     }
 
-    /**
-     * @return array
-     */
-    public function get()
+    public function get(): array
     {
         return $this->manifest;
     }
 
-    /**
-     * @param string $key
-     * @param null $default
-     *
-     * @return array|mixed|null
-     */
-    public function getPath($key = '', $default = null)
+    public function getPath(string $key = '', $default = null)
     {
         $collection = $this->manifest;
-        if (is_null($key)) {
+
+        if ($key === null) {
             return $collection;
         }
-        if (isset($collection[$key])) {
-            return $collection[$key];
-        }
-        foreach (explode('.', $key) as $segment) {
-            if (!isset($collection[$segment])) {
-                return $default;
-            } else {
-                $collection = $collection[$segment];
-            }
+
+        $segments = explode('.', $key);
+        foreach ($segments as $segment) {
+            $collection = match (true) {
+                isset($collection[$segment]) => $collection[$segment],
+                default => $default,
+            };
         }
 
         return $collection;

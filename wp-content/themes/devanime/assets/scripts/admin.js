@@ -1,4 +1,11 @@
 jQuery(document).ready(function ($) {
+
+    $('#color-primary .wp-picker-container').on('change', function() {
+        var color = $(this).find('.wp-color-picker').val(); // Get the value of the primary color picker
+        // Update the value of the secondary color picker
+        $('#color-secondary .wp-color-picker').val(color).change();
+    });
+
     if (!window.hasOwnProperty('vc')) {
         return;
     }

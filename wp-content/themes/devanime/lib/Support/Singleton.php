@@ -3,34 +3,31 @@
 namespace DevAnime\Support;
 
 /**
- * trait Singleton
+ * Trait Singleton
  * @package DevAnime\Support
  */
 trait Singleton
 {
-    private static $instances = [];
+    private static array $instances = [];
 
-    final private function __construct()
+    final public function __construct()
     {
     }
 
-    private function __clone()
+    public function __clone()
     {
     }
 
-    private function __sleep()
+    public function __sleep()
     {
     }
 
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 
-    final public static function getInstance()
+    final public static function getInstance(): static
     {
-        if (!isset(self::$instances[static::class])) {
-            self::$instances[static::class] = new static;
-        }
-        return self::$instances[static::class];
+        return static::$instances[static::class] ??= new static();
     }
 }

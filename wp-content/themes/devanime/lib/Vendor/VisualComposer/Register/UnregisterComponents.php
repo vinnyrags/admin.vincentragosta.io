@@ -10,7 +10,7 @@ use DevAnime\Support\Util;
  */
 class UnregisterComponents
 {
-    private $blacklist = [
+    private array $blacklist = [
         'vc_message',
         'vc_twitter',
         'vc_separator',
@@ -36,7 +36,6 @@ class UnregisterComponents
         'vc_cta_button2',
         'vc_video',
         'vc_gmaps',
-        'vc_raw_html',
         'vc_raw_js',
         'vc_flickr',
         'vc_progress_bar',
@@ -78,6 +77,11 @@ class UnregisterComponents
     ];
 
     public function __construct()
+    {
+        $this->unregisterComponents();
+    }
+
+    private function unregisterComponents(): void
     {
         $components = Util::filterArray($this->blacklist, 'blacklist');
         foreach ($components as $component) {

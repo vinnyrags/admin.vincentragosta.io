@@ -2,15 +2,17 @@
 
 namespace DevAnime\Vendor\VisualComposer\Support;
 
+use WPBakeryShortCode;
+
 /**
  * Class Component
  * @package DevAnime\Vendor\VisualComposer\Support
  */
-class Component extends \WPBakeryShortCode implements RegistersComponentConfig
+class Component extends WPBakeryShortCode implements RegistersComponentConfig
 {
-    const NAME = null;
-    const TAG = null;
-    const VIEW = null;
+    protected const NAME = null;
+    protected const TAG = null;
+    protected const VIEW = null;
 
     use ComponentRegistrationTrait;
 
@@ -26,23 +28,24 @@ class Component extends \WPBakeryShortCode implements RegistersComponentConfig
         if (!$this->hasImageParam()) {
             return parent::singleParamHtmlHolder($param, $value);
         }
-        $output = '';
-        $param_name = isset($param['param_name']) ? $param['param_name'] : '';
-        $type = isset($param['type']) ? $param['type'] : '';
-        $class = isset($param['class']) ? $param['class'] : '';
 
-        if ('attach_image' === $param['type'] && $param_name === 'image') {
-            $output .= '<input type="hidden" class="wpb_vc_param_value ' . $param_name . ' ' . $type . ' ' . $class . '" name="' . $param_name . '" value="' . $value . '" />';
-            $element_icon = $this->settings('icon');
-            $img = wpb_getImageBySize(array(
-                'attach_id' => (int)preg_replace('/[^\d]/', '', $value),
+        $output = '';
+        $paramName = $param['param_name'] ?? '';
+        $type = $param['type'] ?? '';
+        $class = $param['class'] ?? '';
+
+        if ('attach_image' === $param['type'] && $paramName === 'image') {
+            $output .= '<input type="hidden" class="wpb_vc_param_value ' . $paramName . ' ' . $type . ' ' . $class . '" name="' . $paramName . '" value="' . $value . '" />';
+            $elementIcon = $this->settings('icon');
+            $img = wpb_getImageBySize([
+                'attach_id' => (int) preg_replace('/[^\d]/', '', $value),
                 'thumb_size' => 'thumbnail',
-            ));
+            ]);
             $this->setSettings('logo', ($img ? $img['thumbnail'] :
                     '<img width="150" height="150" src="' . vc_asset_url('vc/blank.gif') .
-                    '" class="attachment-thumbnail vc_general vc_element-icon icon-wpb-single-image"  data-name="' . $param_name .
+                    '" class="attachment-thumbnail vc_general vc_element-icon icon-wpb-single-image"  data-name="' . $paramName .
                     '" alt="" title="" style="display: none;" />') . '<span class="no_image_image vc_element-icon' .
-                (!empty($element_icon) ? ' ' . $element_icon : '') .
+                (!empty($elementIcon) ? ' ' . $elementIcon : '') .
                 ($img && !empty($img['p_img_large'][0]) ? ' image-exists' : '') .
                 '" /><a href="#" class="column_edit_trigger' .
                 ($img && !empty($img['p_img_large'][0]) ? ' image-exists' : '') . '">' .
@@ -65,12 +68,12 @@ class Component extends \WPBakeryShortCode implements RegistersComponentConfig
         return $this->hasImageParam() ? '' : parent::outputTitle($title);
     }
 
-    protected function hasImageParam()
+    protected function hasImageParam(): bool
     {
-        $image_params = array_filter($this->component_config['params'], function ($p) {
+        $imageParams = array_filter($this->componentConfig['params'], function ($p) {
             return isset($p['type']) && $p['type'] == 'attach_image' && $p['param_name'] == 'image';
         });
-        return !empty($image_params);
+        return !empty($imageParams);
     }
 
     /**
@@ -79,7 +82,7 @@ class Component extends \WPBakeryShortCode implements RegistersComponentConfig
      *
      * @return string
      */
-    public function adminPostTitleView($content, $postObj)
+    public function adminPostTitleView($content, $postObj): string
     {
         return $content;
     }

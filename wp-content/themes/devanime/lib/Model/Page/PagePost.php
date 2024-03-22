@@ -5,20 +5,21 @@ namespace DevAnime\Model\Page;
 use DevAnime\Model\Post\PostBase;
 
 /**
- * class PagePost
+ * Class PagePost
  * @package DevAnime\Model\Page
  */
 class PagePost extends PostBase
 {
-    const POST_TYPE = 'page';
+    public const POST_TYPE = 'page';
 
-    public function parent()
+    public function parent(): ?PagePost
     {
-        return $this->post()->post_parent ? static::create($this->post()->post_parent) : null;
+        $parentId = $this->post()->post_parent;
+        return $parentId ? static::create($parentId) : null;
     }
 
-    public function template()
+    public function template(): string
     {
-        return get_page_template_slug($this->ID) ?: 'page.php';
+        return get_page_template_slug($this->ID) ?? 'page.php';
     }
 }

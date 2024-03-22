@@ -12,8 +12,8 @@ class Slider extends ParentComponent
 {
     const NAME = 'Slider';
     const TAG = 'slider';
-    protected $children = ['slide'];
-    protected $component_config = [
+    protected array $children = ['slide'];
+    protected array $componentConfig = [
         'description' => 'Slider Container',
         'is_container' => true,
         'content_element' => true,

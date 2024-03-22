@@ -14,7 +14,7 @@ class Video extends Component
     const TAG = 'sit_video';
     const DEFAULT_MODAL_ID = 'video-modal';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Video Component',
         'icon' => 'icon-wpb-film-youtube',
         'wrapper_class' => 'clearfix',
@@ -75,7 +75,7 @@ class Video extends Component
 //        foreach($videos as $Video) { /* @var VideoPost $Video */
 //            $options[$Video->title()] = $Video->ID;
 //        }
-//        $this->component_config['params']['videos']['value'] = $options;
+//        $this->componentConfig['params']['videos']['value'] = $options;
 //    }
 //
 //    public function adminPostTitleView($content, $postObj)

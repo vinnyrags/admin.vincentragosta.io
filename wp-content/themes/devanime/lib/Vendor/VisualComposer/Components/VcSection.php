@@ -6,8 +6,6 @@ use DevAnime\Vendor\VisualComposer\Support\BackgroundContainerTrait;
 use DevAnime\Vendor\VisualComposer\Support\BackgroundImageTrait;
 use DevAnime\Vendor\VisualComposer\Support\ComponentRegistrationTrait;
 use DevAnime\Vendor\VisualComposer\Support\RegistersComponentConfig;
-use DevAnime\Vendor\VisualComposer\Support\Util;
-use DevAnime\Vendor\VisualComposer\Views\VcSectionView;
 use WPBakeryShortCode;
 
 require_once vc_path_dir('SHORTCODES_DIR', 'vc-section.php');
@@ -22,7 +20,7 @@ class VcSection extends \WPBakeryShortCode_VC_Section implements RegistersCompon
     const TAG = 'vc_section';
 
     use ComponentRegistrationTrait {
-        setupConfig as setupConfigBase;
+        setupConfig as private setupConfigBase;
     }
     use BackgroundImageTrait;
     use BackgroundContainerTrait;
@@ -31,7 +29,7 @@ class VcSection extends \WPBakeryShortCode_VC_Section implements RegistersCompon
     {
         $settings['base'] = static::TAG;
         WPBakeryShortCode::__construct($settings); //avoids premature script registration in parent
-        $this->component_config = [
+        $this->componentConfig = [
             'description' => __( 'Group multiple rows in section', 'devanime' ),
             'icon' => 'vc_icon-vc-section',
             'wrapper_class' => 'clearfix',
@@ -39,7 +37,6 @@ class VcSection extends \WPBakeryShortCode_VC_Section implements RegistersCompon
             'category' => 'Content',
             'show_settings_on_create' => false,
             'class' => 'vc_main-sortable-element',
-            'js_view' => 'VcSectionView',
             'as_parent' => array(
                 'only' => 'vc_row',
             ),
@@ -135,12 +132,12 @@ class VcSection extends \WPBakeryShortCode_VC_Section implements RegistersCompon
                 ]
             ]
         ];
-        $this->component_config['params'] = $this->appendBackgroundImageConfig($this->component_config['params']);
-        $this->component_config['params'] = $this->appendBackgroundContainerConfig($this->component_config['params']);
-        $this->component_config['params'] = $this->appendSectionSpecificBackgroundConfig($this->component_config['params']);
+        $this->componentConfig['params'] = $this->appendBackgroundImageConfig($this->componentConfig['params']);
+        $this->componentConfig['params'] = $this->appendBackgroundContainerConfig($this->componentConfig['params']);
+        $this->componentConfig['params'] = $this->appendSectionSpecificBackgroundConfig($this->componentConfig['params']);
     }
 
-    protected function appendSectionSpecificBackgroundConfig($config)
+    protected function appendSectionSpecificBackgroundConfig($config): array
     {
         return array_merge($config, [
             [
@@ -159,12 +156,12 @@ class VcSection extends \WPBakeryShortCode_VC_Section implements RegistersCompon
         ]);
     }
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         $this->setupConfigBase();
         $this->applyBackgroundColorFilter();
         if ($additional_options = apply_filters('visual_composer/section_additional_options', [])) {
-            $this->component_config['params'][] = [
+            $this->componentConfig['params'][] = [
                 'type' => 'checkbox',
                 'param_name' => 'options',
                 'heading' => 'Additional Options',

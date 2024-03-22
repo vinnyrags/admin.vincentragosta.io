@@ -5,14 +5,12 @@ namespace DevAnime\Vendor\VisualComposer\Register;
 use DevAnime\Vendor\VisualComposer\Components;
 
 /**
- * Class ComponentRegistry
+ * Class RegisterComponents
  * @package DevAnime\Vendor\VisualComposer\Register
- *
- * // TODO get file names and assemble components array that way
  */
 class RegisterComponents
 {
-    const COMPONENTS = [
+    private array $components = [
         Components\VcSection::class,
         Components\VcRow::class,
         Components\VcColumn::class,
@@ -35,11 +33,16 @@ class RegisterComponents
 
     public function __construct()
     {
-        foreach(static::COMPONENTS as $Component) {
-            if (class_exists($Component)) {
-                $Component = new $Component;
-                if (method_exists($Component, 'register')) {
-                    $Component->register();
+        $this->registerComponents();
+    }
+
+    private function registerComponents(): void
+    {
+        foreach ($this->components as $componentClass) {
+            if (class_exists($componentClass)) {
+                $component = new $componentClass();
+                if (method_exists($component, 'register')) {
+                    $component->register();
                 }
             }
         }

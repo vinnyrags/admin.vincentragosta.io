@@ -13,7 +13,7 @@ class Accordion extends ParentComponent
     const NAME = 'Accordion';
     const TAG = 'accordion';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Create accordion.',
         'is_container' => true,
         'content_element' => true,

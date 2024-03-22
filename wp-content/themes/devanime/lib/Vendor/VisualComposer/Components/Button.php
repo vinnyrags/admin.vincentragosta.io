@@ -13,14 +13,14 @@ class Button extends Component
     const NAME = 'Button';
     const TAG = 'button';
 
-    protected static $default_styles = [
+    protected static array $defaultStyles = [
         'Select Style' => '',
         'Primary' => 'primary',
         'Secondary' => 'secondary',
         'Inverted' => 'inverted'
     ];
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Create a button link.',
         'icon' => 'icon-wpb-toggle-small-expand',
         'wrapper_class' => 'clearfix',
@@ -72,15 +72,15 @@ class Button extends Component
         ]
     ];
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         parent::setupConfig();
         $this->setStyles();
     }
 
-    protected function setStyles()
+    protected function setStyles(): void
     {
-        $this->component_config['params'][3]['value'] = apply_filters('visual_composer/button_styles', static::$default_styles);
+        $this->componentConfig['params'][3]['value'] = apply_filters('visual_composer/button_styles', static::$defaultStyles);
     }
 
 }

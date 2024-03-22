@@ -2,14 +2,16 @@
 
 namespace DevAnime\Repository;
 
+use DevAnime\Model\Post\PostBase;
+
 /**
- * interface Repository
+ * Interface Repository
  * @oackage DevAnime\Repository
  */
 interface Repository extends ImmutableRepository
 {
-    function add($object);
+    public function add(PostBase $Post);
 
-    function remove($object);
+    public function remove(PostBase $Post);
 
 }

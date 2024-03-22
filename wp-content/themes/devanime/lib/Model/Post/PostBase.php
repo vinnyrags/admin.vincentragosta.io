@@ -4,35 +4,42 @@ namespace DevAnime\Model\Post;
 
 use DevAnime\Support\DateTime;
 use DevAnime\Support\Util;
-use WP_Image;
+//use WP_Image;
+use WP_Post;
+use WP_Query;
+use WP_Term;
+use WP_User;
 
 /**
- * class PostBase
+ * Class PostBase
  * @package DevAnime\Model\Post
  */
 abstract class PostBase
 {
-    const POST_TYPE = null;
-    private $_post_init = null;
-    private $_post;
-    private $_author;
-    private $_fields = [], $_terms = [];
-    protected $_permalink, $_featured_image;
-    protected $_date_field_names = [];
-    protected static $default_query = [];
-    protected $_default_date_format;
+    protected const POST_TYPE = null;
 
-    function __construct($post = null)
+    private ?int $_post_init = null;
+    private ?WP_Post $_post = null;
+    private ?WP_User $_author = null;
+    private array $_fields = [];
+    private array $_terms = [];
+    protected ?string $_permalink;
+//    protected ?WP_Image $_featured_image;
+    protected array $_date_field_names = [];
+    protected static array $default_query = [];
+    protected ?string $_default_date_format;
+
+    public function __construct($post = null)
     {
         $this->_post_init = $post;
         $this->init();
     }
 
-    protected function init()
+    protected function init(): void
     {
     }
 
-    public function reset($reload = false)
+    public function reset($reload = false): void
     {
         $post_id = $this->post()->ID;
         $this->_post = $this->_author = $this->_permalink = $this->_featured_image = null;
@@ -44,12 +51,12 @@ abstract class PostBase
             $this->fields(true);
             $this->allTermIdsByTaxonomy();
             $this->permalink();
-            $this->featuredImage();
+//            $this->featuredImage();
         }
         $this->init();
     }
 
-    public function permalink()
+    public function permalink(): string
     {
         if (empty($this->_permalink)) {
             $this->_permalink = get_permalink($this->post());
@@ -58,35 +65,32 @@ abstract class PostBase
         return $this->_permalink;
     }
 
-    public function publishedDate($default_format = null)
+    public function publishedDate(?string $default_format = null): DateTime
     {
         $format = $default_format ?: $this->_default_date_format;
         return new DateTime($this->post()->post_date, $format);
     }
 
-    public function modifiedDate($default_format = null)
+    public function modifiedDate(?string $default_format = null): DateTime
     {
         $format = $default_format ?: $this->_default_date_format;
         return new DateTime($this->post()->post_modified, $format);
     }
 
-    /**
-     * @return WP_Image
-     */
-    public function featuredImage()
-    {
-        if (!isset($this->_featured_image) && class_exists('WP_Image')) {
-            $this->_featured_image = WP_Image::get_featured($this->post());
-        }
-        return $this->_featured_image;
-    }
+//    public function featuredImage(): ?WP_Image
+//    {
+//        if (!isset($this->_featured_image) && class_exists(WP_Image::class)) {
+//            $this->_featured_image = WP_Image::get_featured($this->post());
+//        }
+//        return $this->_featured_image;
+//    }
+//
+//    public function setFeaturedImage(WP_Image $image): void
+//    {
+//        $this->_featured_image = $image;
+//    }
 
-    public function setFeaturedImage(WP_Image $image)
-    {
-        $this->_featured_image = $image;
-    }
-
-    public function field($selector)
+    public function field(string $selector)
     {
         if (empty($this->_fields[$selector])) {
             $field = get_field($selector, $this->post()->ID);
@@ -99,7 +103,7 @@ abstract class PostBase
         return $this->_fields[$selector];
     }
 
-    public function fields($fetch = true)
+    public function fields(bool $fetch = true): array
     {
         if ($fetch) {
             $fields = get_fields($this->post()->ID);
@@ -111,10 +115,7 @@ abstract class PostBase
         return $this->_fields;
     }
 
-    /**
-     * @return bool|null|\WP_Post
-     */
-    public function post()
+    public function post(): ?WP_Post
     {
         if (empty($this->_post)) {
             $this->_post = $this->hasValidPostInit() ?
@@ -133,17 +134,17 @@ abstract class PostBase
         return $this->_post;
     }
 
-    protected function isValidPostInit()
+    protected function isValidPostInit(): bool
     {
         return $this->_post->post_type == static::POST_TYPE;
     }
 
-    public function title()
+    public function title(): string
     {
         return get_the_title($this->post());
     }
 
-    public function content($use_global = true)
+    public function content(bool $use_global = true): string
     {
         $content = $this->isGlobal() && $use_global ?
             get_the_content() :
@@ -151,46 +152,38 @@ abstract class PostBase
         return apply_filters('the_content', $content);
     }
 
-    public function type()
+    public function type(): string
     {
         return static::POST_TYPE ?: $this->post()->post_type;
     }
 
-    public function isGlobal()
+    public function isGlobal(): bool
     {
         return isset($GLOBALS['post']) && $GLOBALS['post'] == $this->post();
     }
 
-    public function excerpt($num_words = 0, $raw = false)
+    public function excerpt(int $num_words = 0, bool $raw = false): string
     {
         return Util::excerpt($this->post(), $num_words, $raw);
     }
 
-    /**
-     * @return \WP_User|false
-     */
-    public function author()
+    public function author(): ?WP_User
     {
         if (empty($this->_author)) {
             $post = $this->post();
-            if (!$post) return false;
-            $this->_author = new \WP_User($post->post_author);
+            if (!$post) return null;
+            $this->_author = new WP_User($post->post_author);
         }
         return $this->_author;
     }
 
-    public function setAuthor(\WP_User $user)
+    public function setAuthor(WP_User $user): void
     {
         $this->_author = $user;
         $this->post()->post_author = $user->ID;
     }
 
-    /**
-     * @param string $taxonomy
-     *
-     * @return \WP_Term[]
-     */
-    public function terms($taxonomy)
+    public function terms(string $taxonomy): array
     {
         if (!(isset($this->_terms[$taxonomy]) && is_array($this->_terms[$taxonomy]))) {
             $terms = get_the_terms($this->post(), $taxonomy);
@@ -201,31 +194,23 @@ abstract class PostBase
         return $this->_terms[$taxonomy];
     }
 
-    /**
-     * @return array
-     */
-    public function allTermIdsByTaxonomy()
+    public function allTermIdsByTaxonomy(): array
     {
         $taxonomies = get_object_taxonomies($this->type(), 'objects');
         foreach ($taxonomies as $name => &$term_ids) {
-            $term_ids = array_map(function (\WP_Term $term) {
+            $term_ids = array_map(function (WP_Term $term) {
                 return $term->term_id;
             }, $this->terms($name));
         }
         return $taxonomies;
     }
 
-    public function isValid()
+    public function isValid(): bool
     {
-        return $this->post() instanceof \WP_Post;
+        return $this->post() instanceof WP_Post;
     }
 
-    /**
-     * @param array $args
-     *
-     * @return array
-     */
-    protected static function getQuery($args = [])
+    protected static function getQuery(array $args = []): array
     {
         $defaults = [
             'post_type' => static::POST_TYPE,
@@ -241,20 +226,15 @@ abstract class PostBase
         return wp_parse_args($args, $defaults);
     }
 
-    public static function getDefaultQuery()
+    public static function getDefaultQuery(): array
     {
         return static::$default_query;
     }
 
-    /**
-     * @param array $args
-     *
-     * @return static[]
-     */
-    public static function getPosts($args = [])
+    public static function getPosts(array $args = []): array
     {
         $args = static::getQuery($args);
-        $query = new \WP_Query();
+        $query = new WP_Query();
         $posts = $query->query($args);
         $ret = [];
         foreach ($posts as $post_obj) {
@@ -263,29 +243,17 @@ abstract class PostBase
         return $ret;
     }
 
-    /**
-     * @return static
-     */
-    public static function create($post_obj)
+    public static function create($post_obj): self
     {
         return new static($post_obj);
     }
 
-    /**
-     * @return static
-     */
-    public static function createFromGlobal()
+    public static function createFromGlobal(): self
     {
         return static::create($GLOBALS['post']);
     }
 
-    /**
-     * Shortcut to post, term and field properties
-     *
-     * @param $name
-     * @return mixed
-     */
-    public function __get($name)
+    public function __get(string $name)
     {
         if ($method_name = Util::getMethodName($this, $name)) {
             if (!isset($this->_fields[$name])) {
@@ -302,12 +270,13 @@ abstract class PostBase
         return $this->field($name);
     }
 
-    public function __set($name, $value)
+    public function __set(string $name, $value): void
     {
         if ($method_name = Util::getMethodName($this, $name, 'set')) {
-            return $this->{$method_name}($value);
+            $this->{$method_name}($value);
+            return;
         }
-        if (property_exists('WP_Post', $name)) {
+        if (property_exists(WP_Post::class, $name)) {
             $this->post()->{$name} = $value;
             return;
         }
@@ -324,25 +293,25 @@ abstract class PostBase
         $this->_fields[$name] = $value;
     }
 
-    public function __isset($name)
+    public function __isset(string $name): bool
     {
         $value = $this->$name;
         return !empty($value);
     }
 
-    private function getTaxonomyFromProperty($name)
+    private function getTaxonomyFromProperty(string $name): ?string
     {
         if (taxonomy_exists($name)) return $name;
 
         $singular_name = Util::singularize($name);
-        return taxonomy_exists($singular_name) ? $singular_name : false;
+        return taxonomy_exists($singular_name) ? $singular_name : null;
     }
 
-    private function hasValidPostInit()
+    private function hasValidPostInit(): bool
     {
         return (
             is_numeric($this->_post_init) ||
-            $this->_post_init instanceof \WP_Post
+            $this->_post_init instanceof WP_Post
         );
     }
 }

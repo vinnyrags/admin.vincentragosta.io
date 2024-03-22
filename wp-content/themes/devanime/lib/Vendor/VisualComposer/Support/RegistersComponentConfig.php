@@ -8,5 +8,5 @@ namespace DevAnime\Vendor\VisualComposer\Support;
  */
 interface RegistersComponentConfig
 {
-    public function register();
+    public function register(): void;
 }

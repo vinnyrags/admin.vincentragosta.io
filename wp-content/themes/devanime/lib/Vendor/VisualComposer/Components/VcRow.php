@@ -6,7 +6,6 @@ use DevAnime\Vendor\VisualComposer\Support\BackgroundContainerTrait;
 use DevAnime\Vendor\VisualComposer\Support\BackgroundImageTrait;
 use DevAnime\Vendor\VisualComposer\Support\ComponentRegistrationTrait;
 use DevAnime\Vendor\VisualComposer\Support\RegistersComponentConfig;
-use DevAnime\Vendor\VisualComposer\Support\Util;
 use WPBakeryShortCode;
 
 require_once vc_path_dir('SHORTCODES_DIR', 'vc-row.php');
@@ -21,7 +20,7 @@ class VcRow extends \WPBakeryShortCode_VC_Row implements RegistersComponentConfi
     const TAG = 'vc_row';
 
     use ComponentRegistrationTrait {
-        setupConfig as setupConfigBase;
+        setupConfig as private setupConfigBase;
     }
     use BackgroundImageTrait;
     use BackgroundContainerTrait;
@@ -30,7 +29,7 @@ class VcRow extends \WPBakeryShortCode_VC_Row implements RegistersComponentConfi
     {
         $settings['base'] = static::TAG;
         WPBakeryShortCode::__construct($settings); //avoids premature script registration in parent
-        $this->component_config = [
+        $this->componentConfig = [
             'description' => 'Place content elements inside the row.',
             'icon' => 'icon-wpb-row',
             'wrapper_class' => 'clearfix',
@@ -119,16 +118,16 @@ class VcRow extends \WPBakeryShortCode_VC_Row implements RegistersComponentConfi
                 ]
             ]
         ];
-        $this->component_config['params'] = $this->appendBackgroundImageConfig($this->component_config['params']);
-        $this->component_config['params'] = $this->appendBackgroundContainerConfig($this->component_config['params']);
+        $this->componentConfig['params'] = $this->appendBackgroundImageConfig($this->componentConfig['params']);
+        $this->componentConfig['params'] = $this->appendBackgroundContainerConfig($this->componentConfig['params']);
     }
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         $this->setupConfigBase();
         $this->applyBackgroundColorFilter();
         if ($additional_options = apply_filters('visual_composer/row_additional_options', [])) {
-            $this->component_config['params'][] = [
+            $this->componentConfig['params'][] = [
                 'type' => 'checkbox',
                 'param_name' => 'options',
                 'heading' => 'Additional Options',

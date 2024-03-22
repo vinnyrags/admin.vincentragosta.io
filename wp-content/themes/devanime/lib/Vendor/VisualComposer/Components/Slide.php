@@ -13,8 +13,8 @@ class Slide extends ChildContainer
 {
     const NAME = 'Slide';
     const TAG = 'slide';
-    protected $parent = 'slider';
-    protected $component_config = [
+    protected ?string $parent = 'slider';
+    protected array $componentConfig = [
         'description' => 'Slide Container',
         'is_container' => true,
         'content_element' => true,
@@ -28,10 +28,10 @@ class Slide extends ChildContainer
 
     use BackgroundImageTrait;
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         parent::setupConfig();
-        $this->component_config['params'] = $this->appendBackgroundImageConfig($this->component_config['params']);
+        $this->componentConfig['params'] = $this->appendBackgroundImageConfig($this->componentConfig['params']);
         $this->applyBackgroundColorFilter();
     }
 }

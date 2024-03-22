@@ -2,15 +2,16 @@
 
 namespace DevAnime\Vendor\VisualComposer\Support;
 
+use WPBakeryShortCodesContainer;
+
 /**
  * Class ComponentContainer
  * @package DevAnime\Vendor\VisualComposer\Support
  */
-class ComponentContainer extends \WPBakeryShortCodesContainer implements RegistersComponentConfig
+class ComponentContainer extends WPBakeryShortCodesContainer implements RegistersComponentConfig
 {
-    const NAME = null;
-    const TAG = null;
-    const VIEW = null;
+    protected const NAME = null;
+    protected const TAG = null;
 
     use ComponentRegistrationTrait;
 

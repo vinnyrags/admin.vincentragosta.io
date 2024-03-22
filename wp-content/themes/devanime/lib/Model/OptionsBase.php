@@ -6,7 +6,7 @@ use DevAnime\Support\Singleton;
 use DevAnime\Support\Util;
 
 /**
- * class OptionsBase
+ * Class OptionsBase
  * @package DevAnime\Model
  *
  * Usage (ex. for options key 'event_date_format'):
@@ -25,7 +25,7 @@ use DevAnime\Support\Util;
  *
  * <code>
  * /**
- *  * {@}method static eventDateFormat()
+ *  * {@method static eventDateFormat()}
  * {@*}
  * class EventOptions extends OptionsBase
  * {
@@ -37,85 +37,102 @@ use DevAnime\Support\Util;
  *     }
  * }
  * </code>
- *
  */
 class OptionsBase
 {
-    protected $options;
+    protected array $options;
 
     /**
      * @var array Preset default values (option key => default value)
      */
-    protected $default_values = [];
+    protected array $defaultValues = [];
 
     use Singleton;
 
-    protected function get($name)
+    /**
+     * Retrieves an option value by key.
+     *
+     * @param string $name The name of the option.
+     * @param mixed $defaultValue The default value to return if the option does not exist.
+     * @return mixed The value of the option.
+     */
+    protected function get(string $name, $defaultValue = null)
     {
-        $default_value = func_get_args()[1] ??
-            $this->default_values[$name] ?? null;
         $value = get_field($name, 'option');
-        $type = gettype($default_value);
-        if (in_array($type, ['boolean', 'integer', 'double', 'string', 'array', 'object'])) {
-            settype($value, $type);
+
+        if (isset($defaultValue) && empty($value)) {
+            $value = $defaultValue;
         }
-        if ($type == 'array') {
-            $value = array_filter($value);
-        }
-        return !empty($value) ? $value : $default_value;
+
+        return $value;
     }
 
     /**
-     * Converts to underscored option key
+     * Converts to underscored option key.
      *
-     * @param string $name
-     * @param array $arguments
-     * @return string
-     * @throws \InvalidArgumentException
+     * @param string $name The name of the method.
+     * @param array $arguments The method arguments.
+     * @return string The key derived from the method name and arguments.
+     * @throws \InvalidArgumentException If an invalid option name is specified.
      */
-    protected function getKeyFromCalledMethod($name, $arguments)
+    protected function getKeyFromCalledMethod(string $name, array $arguments): string
     {
-        if ($name != 'get') { //normal accessor method called
+        if ($name !== 'get') { // normal accessor method called
             $key = Util::toSnakeCase($name);
-        } else if (isset($arguments[0])) { //direct "get" call
+        } elseif (isset($arguments[0])) { // direct "get" call
             $key = array_shift($arguments);
         } else {
             throw new \InvalidArgumentException('Invalid option name specified');
         }
+
         return empty($arguments) ? $key : sprintf('%s-%s', $key, md5(serialize($arguments)));
     }
 
-    protected function isValidMethodCall($name)
+    /**
+     * Checks if the method call is valid.
+     *
+     * @param string $name The name of the method.
+     * @return bool True if the method call is valid, false otherwise.
+     */
+    protected function isValidMethodCall(string $name): bool
     {
-        return method_exists($this, $name) && 0 === strpos($name, 'get');
+        return method_exists($this, $name) && strpos($name, 'get') === 0;
     }
 
     /**
-     * @param $name
-     * @param $arguments
-     * @return mixed
+     * Magic method to handle calls to inaccessible methods.
+     *
+     * @param string $name The name of the method.
+     * @param array $arguments The method arguments.
+     * @return mixed The result of the method call.
      */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments)
     {
         $key = $this->getKeyFromCalledMethod($name, $arguments);
         if (!isset($this->options[$key])) {
-            //transform accessor method call into direct "get" call
-            if ($name != 'get') {
-                $getter_name = 'get' . ucfirst($name);
-                if (method_exists($this, $getter_name)) {
-                    $name = $getter_name;
+            // transform accessor method call into direct "get" call
+            if ($name !== 'get') {
+                $getterName = 'get' . ucfirst($name);
+                if (method_exists($this, $getterName)) {
+                    $name = $getterName;
                 } else {
                     $name = 'get';
                     array_unshift($arguments, $key);
                 }
-
             }
             $this->options[$key] = call_user_func_array([$this, $name], $arguments);
         }
         return $this->options[$key];
     }
 
-    public static function __callStatic($name, $arguments)
+    /**
+     * Magic method to handle static calls to inaccessible methods.
+     *
+     * @param string $name The name of the method.
+     * @param array $arguments The method arguments.
+     * @return mixed The result of the static method call.
+     */
+    public static function __callStatic(string $name, array $arguments)
     {
         return call_user_func_array([self::getInstance(), $name], $arguments);
     }

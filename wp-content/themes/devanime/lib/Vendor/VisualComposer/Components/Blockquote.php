@@ -13,7 +13,7 @@ class Blockquote extends Component
     const NAME = 'Blockquote';
     const TAG = 'blockquote';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'A block quotation with attribution and footnote',
         'icon' => 'icon-wpb-toggle-small-expand',
         'wrapper_class' => 'clearfix',

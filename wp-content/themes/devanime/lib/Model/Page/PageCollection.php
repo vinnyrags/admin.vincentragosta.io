@@ -2,7 +2,7 @@
 
 namespace DevAnime\Model\Page;
 
-use DevAnime\Model\Object\ObjectCollection;
+use DevAnime\Collection\ObjectCollection;
 
 /**
  * Class PageCollection
@@ -10,7 +10,7 @@ use DevAnime\Model\Object\ObjectCollection;
  */
 class PageCollection extends ObjectCollection
 {
-    protected static $object_class_name = PagePost::class;
+    protected static string $objectClassName = PagePost::class;
 
     protected function getObjectHash($item)
     {

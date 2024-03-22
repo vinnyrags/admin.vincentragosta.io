@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "affd50bbea3cc64c741c40ec0c310b26",
+    "content-hash": "78e4d5b595032069e66d1ed71d18ac43",
     "packages": [
         {
             "name": "composer/installers",
@@ -107,63 +107,54 @@
         },
         {
             "name": "devanime/advanced-custom-fields-pro",
-            "version": "dev-master",
+            "version": "dev-feature/6.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/devanime/advanced-custom-fields-pro.git",
-                "reference": "0a6f636e6311c25a1417dbbf2be636284ce0a542"
+                "reference": "94272073c9b90cfbeda40874715acd468f968dc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devanime/advanced-custom-fields-pro/zipball/0a6f636e6311c25a1417dbbf2be636284ce0a542",
-                "reference": "0a6f636e6311c25a1417dbbf2be636284ce0a542",
+                "url": "https://api.github.com/repos/devanime/advanced-custom-fields-pro/zipball/94272073c9b90cfbeda40874715acd468f968dc5",
+                "reference": "94272073c9b90cfbeda40874715acd468f968dc5",
                 "shasum": ""
             },
-            "require": {
-                "composer/installers": "~1.0",
-                "php": ">=5.3"
-            },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "license": [
                 "GPL-3.0"
             ],
-            "description": "Meta box creation and storage for all website builds.",
+            "description": "Copy of ACF Pro so we can use it in our composer architecture.",
             "support": {
-                "source": "https://github.com/devanime/advanced-custom-fields-pro/tree/develop",
+                "source": "https://github.com/devanime/advanced-custom-fields-pro/tree/feature/6.2.7",
                 "issues": "https://github.com/devanime/advanced-custom-fields-pro/issues"
             },
-            "time": "2022-07-21T03:43:45+00:00"
+            "time": "2024-03-22T04:35:09+00:00"
         },
         {
-            "name": "devanime/monkey-d-luffy",
-            "version": "dev-master",
+            "name": "devanime/visual-composer",
+            "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/devanime/monkey-d-luffy.git",
-                "reference": "52389367697a37413c55c090a5f33c1c75727951"
+                "url": "https://github.com/devanime/visual-composer.git",
+                "reference": "8be169f8f8c07e6d82e1d57e2545cdd2d0f4b939"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devanime/monkey-d-luffy/zipball/52389367697a37413c55c090a5f33c1c75727951",
-                "reference": "52389367697a37413c55c090a5f33c1c75727951",
+                "url": "https://api.github.com/repos/devanime/visual-composer/zipball/8be169f8f8c07e6d82e1d57e2545cdd2d0f4b939",
+                "reference": "8be169f8f8c07e6d82e1d57e2545cdd2d0f4b939",
                 "shasum": ""
-            },
-            "require": {
-                "composer/installers": "~1.0",
-                "php": ">=5.4"
             },
             "default-branch": true,
             "type": "wordpress-plugin",
             "license": [
                 "GPL-3.0"
             ],
-            "description": "The custom build over Visual Composer, this is used on all web projects.",
+            "description": "Copy of Visual Composer so we can use it in our composer infrastructure.",
             "support": {
-                "source": "https://github.com/devanime/monkey-d-luffy/tree/develop",
-                "issues": "https://github.com/devanime/monkey-d-luffy/issues"
+                "source": "https://github.com/devanime/visual-composer/tree/main",
+                "issues": "https://github.com/devanime/visual-composer/issues"
             },
-            "time": "2022-07-21T00:24:35+00:00"
+            "time": "2024-03-22T04:21:10+00:00"
         },
         {
             "name": "devanime/wordpress-seo-premium",
@@ -248,12 +239,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "901410b8a6c2292af8daa66ea86ac1768da144cc"
+                "reference": "fe1dd5c9fd30e189878d77f83c25c0cceb1d88d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/901410b8a6c2292af8daa66ea86ac1768da144cc",
-                "reference": "901410b8a6c2292af8daa66ea86ac1768da144cc",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/fe1dd5c9fd30e189878d77f83c25c0cceb1d88d7",
+                "reference": "fe1dd5c9fd30e189878d77f83c25c0cceb1d88d7",
                 "shasum": ""
             },
             "require": {
@@ -289,7 +280,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2024-03-16T13:21:12+00:00"
+            "time": "2024-03-21T16:07:29+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -660,7 +651,8 @@
     "stability-flags": {
         "wp-sync-db/wp-sync-db": 20,
         "wp-sync-db/wp-sync-db-media-files": 20,
-        "devanime/monkey-d-luffy": 20,
+        "devanime/advanced-custom-fields-pro": 20,
+        "devanime/visual-composer": 20,
         "wp-sync-db/wp-sync-db-cli": 20
     },
     "prefer-stable": false,

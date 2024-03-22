@@ -20,7 +20,7 @@ class VcColumn extends \WPBakeryShortCode_VC_Column implements RegistersComponen
     const TAG = 'vc_column';
 
     use ComponentRegistrationTrait {
-        setupConfig as setupConfigBase;
+        setupConfig as private setupConfigBase;
     }
     use BackgroundImageTrait;
     use BackgroundContainerTrait;
@@ -29,7 +29,7 @@ class VcColumn extends \WPBakeryShortCode_VC_Column implements RegistersComponen
     {
         $settings['base'] = static::TAG;
         WPBakeryShortCode::__construct($settings); //avoids premature script registration in parent
-        $this->component_config = [
+        $this->componentConfig = [
             'description' => 'Place content elements inside the column.',
             'icon' => 'icon-wpb-row',
             'is_container' => true,
@@ -128,16 +128,16 @@ class VcColumn extends \WPBakeryShortCode_VC_Column implements RegistersComponen
                 ],
             ]
         ];
-        $this->component_config['params'] = $this->appendBackgroundImageConfig($this->component_config['params']);
-        $this->component_config['params'] = $this->appendBackgroundContainerConfig($this->component_config['params']);
+        $this->componentConfig['params'] = $this->appendBackgroundImageConfig($this->componentConfig['params']);
+        $this->componentConfig['params'] = $this->appendBackgroundContainerConfig($this->componentConfig['params']);
     }
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         $this->setupConfigBase();
         $this->applyBackgroundColorFilter();
         if ($additional_options = apply_filters('visual_composer/column_additional_options', [])) {
-            $this->component_config['params'][] = [
+            $this->componentConfig['params'][] = [
                 'type' => 'checkbox',
                 'param_name' => 'options',
                 'heading' => 'Additional Options',

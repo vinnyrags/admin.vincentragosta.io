@@ -2,7 +2,7 @@
 
 namespace DevAnime\Model\Post;
 
-use DevAnime\Model\Object\ObjectCollection;
+use DevAnime\Collection\ObjectCollection;
 
 /**
  * Class PostCollection

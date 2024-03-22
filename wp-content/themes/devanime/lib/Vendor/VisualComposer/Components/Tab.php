@@ -14,9 +14,9 @@ class Tab extends ChildComponent
     const NAME = 'Tab';
     const TAG = 'tab';
     const VIEW = TabView::class;
-    protected $parent = 'tabs';
+    protected ?string $parent = 'tabs';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Create a tab.',
         'icon' => 'icon-wpb-toggle-small-expand',
         'wrapper_class' => 'clearfix',

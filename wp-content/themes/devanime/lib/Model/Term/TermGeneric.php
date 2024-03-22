@@ -3,12 +3,12 @@
 namespace DevAnime\Model\Term;
 
 /**
- * class TermGeneric
+ * Class TermGeneric
  * @package DevAnime\Model\Term
  */
 class TermGeneric extends TermBase
 {
-    public function __construct($term, $taxonomy = null)
+    public function __construct($term, ?string $taxonomy = null)
     {
         if ($taxonomy) {
             $term = get_term($term, $taxonomy);

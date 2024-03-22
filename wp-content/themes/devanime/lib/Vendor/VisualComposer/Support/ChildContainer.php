@@ -8,12 +8,14 @@ namespace DevAnime\Vendor\VisualComposer\Support;
  */
 class ChildContainer extends ComponentContainer
 {
-    protected $parent;
-    protected static $serialize = true;
+    protected ?string $parent = null;
+    protected static bool $serialize = true;
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         parent::setupConfig();
-        $this->component_config['as_child'] = ['only' => $this->parent];
+        if ($this->parent !== null) {
+            $this->componentConfig['as_child'] = ['only' => $this->parent];
+        }
     }
 }

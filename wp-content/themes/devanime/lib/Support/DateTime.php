@@ -10,107 +10,105 @@ use DateTimeInterface, DateTimeZone;
  */
 class DateTime extends \DateTime implements \JsonSerializable
 {
-    const DEFAULT_FORMAT = DATE_ISO8601;
+    public const DEFAULT_FORMAT = DATE_ATOM;
 
-    protected $is_dst;
-    protected $default_format = self::DEFAULT_FORMAT;
+    private bool $isDST;
+    private string $defaultFormat;
 
-    public function __construct($time = 'now', $default_format = null, DateTimeZone $timezone = null)
+    public function __construct($time = 'now', ?string $defaultFormat = null, ?DateTimeZone $timezone = null)
     {
-        $this->setDST($time);
-        if ($default_format) {
-            $this->default_format = $default_format;
-        }
+        $this->isDST = $this->setDST($time);
+        $this->defaultFormat = $defaultFormat ?? self::DEFAULT_FORMAT;
         parent::__construct($time, $this->getDefaultTimezone($timezone));
     }
 
-    public static function createFromTimestamp($timestamp, $default_format = null, DateTimeZone $timezone = null)
+    public static function createFromTimestamp(int $timestamp, ?string $defaultFormat = null, ?DateTimeZone $timezone = null): self
     {
-        $datetime = new static("@$timestamp", $default_format, new DateTimeZone('UTC'));
+        $datetime = new static("@$timestamp", $defaultFormat, new DateTimeZone('UTC'));
         $datetime->setTimezone($datetime->getDefaultTimezone($timezone));
         return $datetime;
     }
 
-    public function isBetween(DateTimeInterface $date_before, DateTimeInterface $date_after)
+    public function isBetween(DateTimeInterface $dateBefore, DateTimeInterface $dateAfter): bool
     {
-        return $this->isAfter($date_before) && $this->isBefore($date_after);
+        return $this->isAfter($dateBefore) && $this->isBefore($dateAfter);
     }
 
-    public function timestampDiff(DateTimeInterface $date)
+    public function timestampDiff(DateTimeInterface $date): int
     {
         return $this->getTimestamp() - $date->getTimestamp();
     }
 
-    public function isBefore(DateTimeInterface $date)
+    public function isBefore(DateTimeInterface $date): bool
     {
         return $this->timestampDiff($date) < 0;
     }
 
-    public function isAfter(DateTimeInterface $date)
+    public function isAfter(DateTimeInterface $date): bool
     {
         return $this->timestampDiff($date) > 0;
     }
 
-    public function isSameDayAs(DateTimeInterface $date)
+    public function isSameDayAs(DateTimeInterface $date): bool
     {
         return $this->format('Y-m-d') === $date->format('Y-m-d');
     }
 
-    public function isSameMonthAs(DateTimeInterface $date)
+    public function isSameMonthAs(DateTimeInterface $date): bool
     {
         return $this->format('Y-m') === $date->format('Y-m');
     }
 
-    public function isSameYearAs(DateTimeInterface $date)
+    public function isSameYearAs(DateTimeInterface $date): bool
     {
         return $this->format('Y') === $date->format('Y');
     }
 
-    public function isPast()
+    public function isPast(): bool
     {
         return $this->getTimestamp() < time();
     }
 
-    public function isFuture()
+    public function isFuture(): bool
     {
         return $this->getTimestamp() > time();
     }
 
-    public function isDaylightSavings()
+    public function isDaylightSavings(): bool
     {
-        return $this->is_dst;
+        return $this->isDST;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->format($this->default_format);
+        return $this->format($this->defaultFormat);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return $this->format(DATE_RFC2822);
     }
 
-    protected function setDST($time)
+    private function setDST($time): bool
     {
-        $localtime_assoc = localtime(strtotime($time), true);
-        $is_dst = !empty($localtime_assoc['is_dst']) || !empty($localtime_assoc['tm_isdst']);
-        if (-1 !== $is_dst) $this->is_dst = (bool)$is_dst;
+        $localtimeAssoc = localtime(strtotime($time), true);
+        $isDST = !empty($localtimeAssoc['is_dst']) || !empty($localtimeAssoc['tm_isdst']);
+        return (bool)$isDST !== -1;
     }
 
-    protected function getDefaultTimezone(DateTimeZone $timezone = null)
+    private function getDefaultTimezone(?DateTimeZone $timezone = null): DateTimeZone
     {
-        return is_null($timezone) ? new DateTimeZone($this->getDefaultTimezoneName()) : $timezone;
+        return $timezone ?? new DateTimeZone($this->getDefaultTimezoneName());
     }
 
-    public function getDefaultTimezoneName()
+    private function getDefaultTimezoneName(): string
     {
         if (!function_exists('get_option')) {
             return date_default_timezone_get();
         }
-        if ($timezone_string = get_option('timezone_string')) {
-            return $timezone_string;
+        if ($timezoneString = get_option('timezone_string')) {
+            return $timezoneString;
         }
-        return timezone_name_from_abbr('', get_option('gmt_offset', 0) * 3600, $this->is_dst);
+        return timezone_name_from_abbr('', get_option('gmt_offset', 0) * 3600, $this->isDST);
     }
 }

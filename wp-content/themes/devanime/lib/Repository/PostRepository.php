@@ -2,103 +2,101 @@
 
 namespace DevAnime\Repository;
 
-use DevAnime\Model\Post;
+use DevAnime\Model\Field\Field;
+use DevAnime\Model\Post\PostBase;
+use DevAnime\Model\Post\PostCollection;
 
 /**
- * class PostRepository
+ * Class PostRepository
  * @package DevAnime\Repository
  */
 class PostRepository implements Repository
 {
-    protected $model_class = Post\PostBase::class;
-    protected $field_ids = [];
-    protected $exclude_current_singular_post = true;
-    protected $use_post_collection = false;
-    protected $collection_class = Post\PostCollection::class;
+    protected string $modelClass = PostBase::class;
+    protected array $fieldIds = [];
+    protected bool $excludeCurrentSingularPost = true;
+    protected string $collectionClass = PostCollection::class;
 
-    public function findById($id)
+    public function findById(int $id): ?PostBase
     {
-        return call_user_func([$this->model_class, 'create'], $id);
+        return call_user_func([$this->modelClass, 'create'], $id);
     }
 
-    public function findOne(array $query)
+    public function findOne(array $query): ?PostBase
     {
         $query['posts_per_page'] = 1;
         $posts = $this->find($query);
         return $posts[0] ?? null;
     }
 
-    public function findOneBySlug($name)
+    public function findOneBySlug(string $name): ?PostBase
     {
         return $this->findOne(compact('name'));
     }
 
-    public function findOneByAuthor($author)
+    public function findOneByAuthor($author): ?PostBase
     {
         if (is_object($author)) $author = $author->ID;
         return $this->findOne(compact('author'));
     }
 
-    public function findAllByAuthor($author)
+    public function findAllByAuthor($author): array
     {
         if (is_object($author)) $author = $author->ID;
         return $this->find(compact('author'));
     }
 
-    public function findAll($any_status = false)
+    public function findAll(bool $anyStatus = false): array
     {
-        $status = $any_status ? 'any' : 'publish';
+        $status = $anyStatus ? 'any' : 'publish';
         return $this->find(['posts_per_page' => -1, 'post_status' => $status]);
     }
 
-    public function findAllDrafts()
+    public function findAllDrafts(): array
     {
         return $this->find(['posts_per_page' => -1, 'post_status' => 'draft']);
     }
 
-    public function find(array $query)
+    public function find(array $query): array
     {
-        $model_class = $this->model_class;
+        $modelClass = $this->modelClass;
         $query = $this->maybeExcludeCurrentSingularPost($query);
-        $posts = array_filter($model_class::getPosts($query));
-        if ($this->use_post_collection) {
-            $collection_class = $this->collection_class;
-            return new $collection_class($posts);
-        }
-        return $posts;
+        $posts = array_filter($modelClass::getPosts($query));
+        $collectionClass = $this->collectionClass;
+        return new $collectionClass($posts);
     }
 
-    public function findWithIds(array $post_ids, int $count = 10)
+    public function findWithIds(array $postIds, int $count = 10): array
     {
-        if (empty($post_ids)) {
+        if (empty($postIds)) {
             return [];
         }
         return $this->find([
             'posts_per_page' => $count,
-            'post__in' => $post_ids,
+            'post__in' => $postIds,
             'orderby' => 'post__in'
         ]);
     }
 
     /**
-     * @param array $term_ids
-     * @param int $count
+     * @param array $termIds
      * @param string $taxonomy
-     * @param array $excluded_post_ids
+     * @param int $count
+     * @param array $excludedPostIds
      * @return array
      */
-    public function findWithTermIds(array $term_ids, string $taxonomy = 'category', $count = 10, array $excluded_post_ids = [])
+    public function findWithTermIds(array $termIds, string $taxonomy = 'category', int $count = 10, array $excludedPostIds = []): array
     {
-        if (empty($term_ids)) {
+        if (empty($termIds)) {
             return [];
         }
         return $this->find([
             'posts_per_page' => $count,
-            'post__not_in' => $excluded_post_ids,
+            'post__not_in' => $excludedPostIds,
             'tax_query' => [
                 [
                     'taxonomy' => $taxonomy,
-                    'terms' => $term_ids,
+                    'terms' => $termIds,
                     'field' => 'term_id',
                     'compare' => 'IN'
                 ]
@@ -106,74 +104,74 @@ class PostRepository implements Repository
         ]);
     }
 
-    public function add($post)
+    public function add(PostBase $Post): bool|\WP_Error
     {
-        $this->checkBoundModelType($post);
-        $post_arr = (array)$post->post();
-        $post_id = $post->ID ? wp_update_post($post_arr, true) : wp_insert_post($post_arr, true);
-        if (is_wp_error($post_id)) {
-            return $post_id;
+        $this->checkBoundModelType($Post);
+        $postArr = (array) $Post->post();
+        $postId = $Post->ID ? wp_update_post($postArr, true) : wp_insert_post($postArr, true);
+        if (is_wp_error($postId)) {
+            return $postId;
         }
-        $post->ID = $post_id;
-        foreach ($post->allTermIdsByTaxonomy() as $taxonomy => $term_ids) {
-            wp_set_object_terms($post->ID, $term_ids, $taxonomy);
+        $Post->ID = $postId;
+        foreach ($Post->allTermIdsByTaxonomy() as $taxonomy => $term_ids) {
+            wp_set_object_terms($Post->ID, $term_ids, $taxonomy);
         }
-        $this->addFeaturedImage($post);
-        $this->addFields($post);
-        $post->reset(true);
+//        $this->addFeaturedImage($Post);
+        $this->addFields($Post);
+        $Post->reset(true);
         return true;
     }
 
-    public function remove($post)
+    public function remove(PostBase $Post): bool
     {
-        $this->checkBoundModelType($post);
-        $result = wp_delete_post($post->ID);
+        $this->checkBoundModelType($Post);
+        $result = wp_delete_post($Post->ID);
         return !empty($result);
     }
 
-    protected function addFeaturedImage(Post\PostBase $post)
-    {
-        $featured_image = $post->featuredImage();
-        if ($featured_image) {
-            set_post_thumbnail($post->ID, $featured_image->ID);
-        } else {
-            delete_post_thumbnail($post->ID);
-        }
-    }
+//    protected function addFeaturedImage(PostBase $post): void
+//    {
+//        $featured_image = $post->featuredImage();
+//        if ($featured_image) {
+//            set_post_thumbnail($post->ID, $featured_image->ID);
+//        } else {
+//            delete_post_thumbnail($post->ID);
+//        }
+//    }
 
-    protected function addFields(Post\PostBase $post)
+    protected function addFields(PostBase $Post): void
     {
-        foreach ($post->fields(false) as $key => $value) {
-            $field_ids = $this->getFieldIds($post);
+        foreach ($Post->fields(false) as $key => $value) {
+            $fieldIds = $this->getFieldIds($Post);
             $value = $this->prepareFieldValue($key, $value);
-            if (isset($field_ids[$key])) {
-                update_field($field_ids[$key], $value, $post->ID);
+            if (isset($fieldIds[$key])) {
+                update_field($fieldIds[$key], $value, $Post->ID);
             } else {
-                update_post_meta($post->ID, $key, $value);
+                update_post_meta($Post->ID, $key, $value);
             }
         }
     }
 
-    protected function getFieldIds(Post\PostBase $post)
+    protected function getFieldIds(PostBase $Post): array
     {
-        if (empty($this->field_ids)) {
-            foreach (acf_get_field_groups(['post_type' => $post::POST_TYPE]) as $group) {
+        if (empty($this->fieldIds)) {
+            foreach (acf_get_field_groups(['post_type' => $Post::POST_TYPE]) as $group) {
                 foreach (acf_get_fields($group) as $field) {
-                    $this->field_ids[$field['name']] = $field['key'];
+                    $this->fieldIds[$field['name']] = $field['key'];
                 }
             }
         }
-        return $this->field_ids;
+        return $this->fieldIds;
     }
 
-    protected function checkBoundModelType(Post\PostBase $post)
+    protected function checkBoundModelType(PostBase $Post): void
     {
-        if (!is_a($post, $this->model_class)) {
-            throw new \InvalidArgumentException('PostBase parameter is not a :' . $this->model_class);
+        if (!is_a($Post, $this->modelClass)) {
+            throw new \InvalidArgumentException('PostBase parameter is not a :' . $this->modelClass);
         }
     }
 
-    protected function prepareFieldValue($key, $value)
+    protected function prepareFieldValue(string $key, mixed $value): mixed
     {
         if (method_exists($this, "prepare_$key")) {
             $value = $this->{"prepare_$key"}($value);
@@ -184,18 +182,18 @@ class PostRepository implements Repository
         return $value;
     }
 
-    protected function maybeExcludeCurrentSingularPost($query)
+    protected function maybeExcludeCurrentSingularPost(array $query): array
     {
         global $wp_query;
         if (!$wp_query) {
             return $query;
         }
-        $model_class = $this->model_class;
-        $post_obj = $wp_query->get_queried_object();
+        $modelClass = $this->modelClass;
+        $PostArr = $wp_query->get_queried_object();
         if (
-            $this->exclude_current_singular_post &&
+            $this->excludeCurrentSingularPost &&
             $wp_query->is_singular &&
-            $post_obj && $post_obj->post_type == $model_class::POST_TYPE
+            $PostArr && $PostArr->post_type == $modelClass::POST_TYPE
         ) {
             if (empty($query['post__not_in'])) {
                 $query['post__not_in'] = [];
@@ -207,5 +205,4 @@ class PostRepository implements Repository
         }
         return $query;
     }
-
 }

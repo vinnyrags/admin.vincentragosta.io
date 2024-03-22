@@ -3,6 +3,7 @@
 namespace DevAnime;
 
 use DevAnime\Controller;
+use DevAnime\Rest;
 
 /**
  * class Theme
@@ -10,13 +11,9 @@ use DevAnime\Controller;
  */
 class Theme
 {
-    public function __construct()
-    {
-        $this->filterOverrides();
-        foreach (apply_filters('devanime/live_controllers', $this->controllers) as $Controller) {
-            new $Controller();
-        }
-    }
+    protected array $endpoints = [
+        Rest\RestConfigSettingsEndpoint::class
+    ];
 
     protected array $controllers = [
         Controller\RegisterConfigController::class,
@@ -30,17 +27,29 @@ class Theme
         Controller\FactoryController::class,
         Controller\UploadSvgController::class,
         Controller\EditorStylesController::class,
-        Controller\Rest\PageFrontendRestController::class,
         Controller\Vendor\VisualComposerController::class,
         Controller\Vendor\AcfController::class,
         Controller\Vendor\YoastController::class,
-        Controller\Vendor\ImagifyController::class
+        Controller\Vendor\ImagifyController::class,
+        Controller\Vendor\BuVersionsController::class,
+        Rest\Controller\RestPageController::class,
     ];
+
+    public function __construct()
+    {
+        $this->filterOverrides();
+        foreach (apply_filters('devanime/endpoints', $this->endpoints) as $Endpoint) {
+            new $Endpoint();
+        }
+        foreach (apply_filters('devanime/controllers', $this->controllers) as $Controller) {
+            new $Controller();
+        }
+    }
 
     protected function filterOverrides()
     {
         // TODO normalize all filters
-        // add_filter('devanime/live_controllers', fn($controllers) => { return array_merge($controllers, []); }
+        // add_filter('devanime/controllers', fn($controllers) => { return array_merge($controllers, []); }
         // add_filter('devanime/rename_post_type, fn($label) => { return '' });
         // add_filter('devanime/remove_default_post_type', '__return_true');
         // add_filter('devanime/enable_comments', '__return_true');

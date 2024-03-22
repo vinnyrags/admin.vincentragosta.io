@@ -3,10 +3,10 @@
 namespace DevAnime\Model\Field;
 
 /**
- * interface Field
+ * Interface Field
  * @package DevAnime\Model\Field
  */
 interface Field
 {
-    function getValue();
+    public function getValue();
 }

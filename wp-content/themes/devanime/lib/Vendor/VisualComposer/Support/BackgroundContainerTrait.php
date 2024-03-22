@@ -8,37 +8,29 @@ namespace DevAnime\Vendor\VisualComposer\Support;
  */
 trait BackgroundContainerTrait
 {
-    protected function appendBackgroundContainerConfig($config)
+    protected function appendBackgroundContainerConfig(array $config): array
     {
         return array_merge($config, [
-            [
-                'type' => 'dropdown',
-                'heading' => sprintf('%s Top Padding', static::NAME),
-                'param_name' => 'top_pad',
-                'edit_field_class'=> 'vc_col-xs-6',
-                'value' => [
-                    'Default' => '',
-                    'Double' => 'tpad-double',
-                    'Half' => 'tpad-half',
-                    'None' => 'tpad-none',
-                ],
-                'description' => 'Set top/bottom inner padding',
-                'group' => 'Background'
-            ],
-            [
-                'type' => 'dropdown',
-                'heading' => sprintf('%s Bottom Padding', static::NAME),
-                'param_name' => 'bottom_pad',
-                'edit_field_class'=> 'vc_col-xs-6',
-                'value' => [
-                    'Default' => '',
-                    'Double' => 'bpad-double',
-                    'Half' => 'bpad-half',
-                    'None' => 'bpad-none',
-                ],
-                'description' => 'Set top/bottom inner padding',
-                'group' => 'Background'
-            ]
+            $this->generatePaddingConfig('top_pad', sprintf('%s Top Padding', static::NAME)),
+            $this->generatePaddingConfig('bottom_pad', sprintf('%s Bottom Padding', static::NAME)),
         ]);
+    }
+
+    private function generatePaddingConfig(string $paramName, string $heading): array
+    {
+        return [
+            'type' => 'dropdown',
+            'heading' => $heading,
+            'param_name' => $paramName,
+            'edit_field_class' => 'vc_col-xs-6',
+            'value' => [
+                'Default' => '',
+                'Double' => "{$paramName}-double",
+                'Half' => "{$paramName}-half",
+                'None' => "{$paramName}-none",
+            ],
+            'description' => 'Set top/bottom inner padding',
+            'group' => 'Background'
+        ];
     }
 }

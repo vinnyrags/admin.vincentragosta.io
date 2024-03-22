@@ -13,7 +13,7 @@ class Tabs extends ParentComponent
     const NAME = 'Tabs';
     const TAG = 'tabs';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Create a set of tabs.',
         'show_settings_on_create' => true,
         'is_container' => true,

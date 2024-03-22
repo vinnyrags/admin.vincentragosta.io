@@ -5,22 +5,22 @@ namespace DevAnime\Register\Taxonomy;
 use DevAnime\Support\Util;
 
 /**
- * class TaxonomyArguments
+ * Class TaxonomyArguments
  * @package DevAnime\Register\Taxonomy
  */
 class TaxonomyArguments
 {
-    public $labels;
-    public $args;
+    public array $labels;
+    public array $args;
 
-    public function __construct($labels, $args)
+    public function __construct(array $labels, array $args)
     {
         $this->labels = wp_parse_args($labels, $this->getDefaultLabels($labels));
         $this->args = $args;
         $this->args['labels'] = $this->labels;
     }
 
-    private function getDefaultLabels($labels)
+    private function getDefaultLabels(array $labels): array
     {
         $singular = $labels['singular_name'];
         $singular_lcase = strtolower($singular);

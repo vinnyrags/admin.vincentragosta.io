@@ -22,7 +22,7 @@ class VcColumnText extends \WPBakeryShortCode_VC_Column_text implements Register
     {
         $settings['base'] = static::TAG;
         parent::__construct($settings);
-        $this->component_config = [
+        $this->componentConfig = [
             'icon' => 'icon-wpb-layer-shape-text',
             'wrapper_class' => 'clearfix',
             'category' => 'Content',

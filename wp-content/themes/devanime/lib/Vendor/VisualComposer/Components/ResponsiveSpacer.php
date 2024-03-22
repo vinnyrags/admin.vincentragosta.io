@@ -13,7 +13,7 @@ class ResponsiveSpacer extends Component
     const NAME = 'Responsive Spacer';
     const TAG = 'responsive_spacer';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Add responsive space above or below a component, row or section.',
         'icon' => 'icon-wpb-toggle-small-expand',
         'wrapper_class' => 'clearfix',
@@ -51,12 +51,12 @@ class ResponsiveSpacer extends Component
         ]
     ];
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         parent::setupConfig();
-        $this->component_config['params']['factor']['value'] = apply_filters(
+        $this->componentConfig['params']['factor']['value'] = apply_filters(
             'visual_composer/responsive-spacer-factors',
-            $this->component_config['params']['factor']['value']
+            $this->componentConfig['params']['factor']['value']
         );
     }
 }

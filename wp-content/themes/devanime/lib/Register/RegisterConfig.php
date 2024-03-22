@@ -3,27 +3,22 @@
 namespace DevAnime\Register;
 
 /**
- * class RegisterConfig
+ * Class RegisterConfig
  * @package DevAnime\Register
  */
 class RegisterConfig
 {
-    protected $_config;
+    protected array $_config;
 
-    /**
-     * Config constructor.
-     *
-     * @param array|string $args
-     */
-
-    protected static $default_registration_types = [
+    protected static array $default_registration_types = [
         'config_files' => 'devanime/register_config',
         'acf_paths' => 'acf/settings/load_json',
         'post_type_models' => 'devanime/register_post_type_models',
         'taxonomy_models' => 'devanime/register_taxonomy_models'
     ];
 
-    public function __construct($args) {
+    public function __construct(array|string $args)
+    {
         if (is_string($args)) {
             $args = ['config_files' => [$args]];
         }
@@ -42,7 +37,7 @@ class RegisterConfig
             if (!is_array($this->_config[$key])) {
                 $this->_config[$key] = [$this->_config[$key]];
             }
-            add_filter($filter_name, function(array $configs = []) use ($key) {
+            add_filter($filter_name, function (array $configs = []) use ($key) {
                 return array_merge($configs, $this->_config[$key]);
             });
         }

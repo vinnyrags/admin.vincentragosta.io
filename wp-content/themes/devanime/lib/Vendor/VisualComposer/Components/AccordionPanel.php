@@ -13,9 +13,9 @@ class AccordionPanel extends ChildComponent
     const NAME = 'Accordion Panel';
     const TAG = 'accordion_panel';
 
-    protected $parent = 'accordion';
+    protected ?string $parent = 'accordion';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Accordion Panel',
         'icon' => 'icon-wpb-toggle-small-expand',
         'wrapper_class' => 'clearfix',

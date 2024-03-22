@@ -13,7 +13,7 @@ class Modal extends Component
     const NAME = 'Modal';
     const TAG = 'modal';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Create a static modal that can be referenced from a CTA.',
         'icon' => 'icon-wpb-toggle-small-expand',
         'wrapper_class' => 'clearfix',

@@ -2,31 +2,33 @@
 
 namespace DevAnime\Factory;
 
-use DevAnime\Model;
+use DevAnime\Model\Term\TermBase;
+use DevAnime\Model\Term\TermGeneric;
 
 /**
- * class TermFactory
+ * Class TermFactory
  * @package DevAnime\Factory
  */
 class TermFactory
 {
-    protected static $models = [];
+    private static array $models = [];
 
     public function create($term = null, $taxonomy = null)
     {
         if ($taxonomy) {
             $term = get_term($term, $taxonomy);
         }
-        $model_class = static::$models[$term->taxonomy] ?? Model\Term\TermGeneric::class;
-        return new $model_class($term);
+        $modelClass = static::$models[$term->taxonomy] ?? TermGeneric::class;
+        return new $modelClass($term);
     }
 
-    public static function registerTermModel($model_class)
+    public static function registerTermModel(string $modelClass): void
     {
-        if (!is_a($model_class, Model\Term\TermBase::class, true)) {
+        if (!is_subclass_of($modelClass, TermBase::class)) {
             throw new \InvalidArgumentException('Invalid term factory registration');
         }
-        $taxonomy = $model_class::TAXONOMY;
-        static::$models[$taxonomy] = $model_class;
+
+        $taxonomy = $modelClass::TAXONOMY;
+        static::$models[$taxonomy] = $modelClass;
     }
 }

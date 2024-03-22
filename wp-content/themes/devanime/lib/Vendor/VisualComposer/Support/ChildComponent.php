@@ -8,16 +8,15 @@ namespace DevAnime\Vendor\VisualComposer\Support;
  */
 class ChildComponent extends Component
 {
-    protected $parent;
-    protected static $serialize = true;
+    protected ?string $parent = null;
+    protected static bool $serialize = true;
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         parent::setupConfig();
-        $this->component_config['as_child'] = ['only' => $this->parent];
-        add_filter('roronoa_zoro/children/' . $this->parent, function ($children) {
-            $children[] = static::TAG;
-            return $children;
-        });
+        if ($this->parent !== null) {
+            $this->componetConfig['as_child'] = ['only' => $this->parent];
+            add_filter('roronoa_zoro/children/' . $this->parent, fn($children) => [...$children, static::TAG]);
+        }
     }
 }

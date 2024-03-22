@@ -3,17 +3,16 @@
 namespace DevAnime\Repository;
 
 /**
- * interface ImmutableRepository
+ * Interface ImmutableRepository
  * @package DevAnime\Repository
  */
 interface ImmutableRepository
 {
-    function findById($id);
+    public function findById(int $id);
 
-    function findOne(array $query);
+    public function findOne(array $query);
 
-    function findAll();
+    public function findAll();
 
-    function find(array $query);
-
+    public function find(array $query);
 }

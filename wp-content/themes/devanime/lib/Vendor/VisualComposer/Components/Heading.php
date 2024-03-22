@@ -13,7 +13,7 @@ class Heading extends Component
     const NAME = 'Heading';
     const TAG = 'heading';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Create a heading.',
         'icon' => 'icon-wpb-atm',
         'wrapper_class' => 'clearfix',

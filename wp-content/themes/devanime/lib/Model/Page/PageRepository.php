@@ -5,7 +5,7 @@ namespace DevAnime\Model\Page;
 use DevAnime\Repository\PostRepository;
 
 /**
- * class PageRepository
+ * Class PageRepository
  * @package DevAnime\Model\Page
  */
 class PageRepository extends PostRepository

@@ -3,14 +3,14 @@
 namespace DevAnime\Model\Field;
 
 /**
- * class FieldCollection
+ * Class FieldCollection
  * @package DevAnime\Model\Field
  */
 abstract class FieldCollection implements Field
 {
-    abstract protected function getFields();
+    abstract protected function getFields(): array;
 
-    public function getValue()
+    public function getValue(): array
     {
         $fields = $this->getFields();
         foreach ($fields as &$value) {

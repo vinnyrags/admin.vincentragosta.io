@@ -8,7 +8,7 @@ namespace DevAnime\Vendor\VisualComposer\Support;
  */
 trait BackgroundImageTrait
 {
-    protected function appendBackgroundImageConfig($config)
+    protected function appendBackgroundImageConfig($config): array
     {
         return array_merge($config, [
             [
@@ -251,20 +251,13 @@ trait BackgroundImageTrait
         ]);
     }
 
-    protected function applyBackgroundColorFilter()
+    protected function applyBackgroundColorFilter(): void
     {
-        $index = -1;
-        foreach ($this->component_config['params'] as $i => $param) {
-            if ($param['param_name'] === 'background_color') {
-                $index = $i;
-                break;
-            }
-        }
-        if ($index >= 0) {
-            $this->component_config['params'][$index]['value'] = apply_filters(
+        $index = array_search('background_color', array_column($this->componentConfig['params'], 'param_name'));
+        if ($index !== false) {
+            $this->componentConfig['params'][$index]['value'] = apply_filters(
                 'roronoa_zoro/background_colors/' . static::TAG,
-                apply_filters('roronoa_zoro/background_colors',
-                    $this->component_config['params'][$index]['value'])
+                apply_filters('roronoa_zoro/background_colors', $this->componentConfig['params'][$index]['value'])
             );
         }
     }

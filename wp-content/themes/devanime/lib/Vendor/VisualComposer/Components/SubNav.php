@@ -13,7 +13,7 @@ class SubNav extends Component
     const NAME = 'Sub Navigation';
     const TAG = 'sub-navigation';
 
-    protected $component_config = [
+    protected array $componentConfig = [
         'description' => 'Set up tabs via sub navigation.',
         'icon' => 'icon-wpb-toggle-small-expand',
         'wrapper_class' => 'clearfix',
@@ -52,7 +52,7 @@ class SubNav extends Component
         ]
     ];
 
-    protected function populateConfigOptions()
+    protected function populateConfigOptions(): void
     {
         $this->setMenus();
     }
@@ -64,6 +64,6 @@ class SubNav extends Component
         foreach ($menus as $menu) {
             $options[$menu->name] = $menu->slug;
         }
-        $this->component_config['params']['menus']['value'] = $options;
+        $this->componentConfig['params']['menus']['value'] = $options;
     }
 }

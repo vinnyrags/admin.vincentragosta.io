@@ -8,13 +8,13 @@ namespace DevAnime\Vendor\VisualComposer\Support;
  */
 class ParentComponent extends ComponentContainer
 {
-    protected $init_priority = 20;
-    protected $children = [];
+    protected int $initPriority = 20;
+    protected array $children = [];
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         parent::setupConfig();
         $children = apply_filters('roronoa_zoro/children/' . static::TAG, $this->children);
-        $this->component_config['as_parent'] = ['only' => implode(',', $children)];
+        $this->componentConfig['as_parent'] = ['only' => implode(',', $children)];
     }
 }

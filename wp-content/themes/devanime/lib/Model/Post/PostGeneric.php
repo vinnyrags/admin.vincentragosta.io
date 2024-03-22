@@ -3,12 +3,12 @@
 namespace DevAnime\Model\Post;
 
 /**
- * class PostGeneric
+ * Class PostGeneric
  * @package DevAnime\Model\Post
  */
 class PostGeneric extends PostBase
 {
-    protected function isValidPostInit()
+    protected function isValidPostInit(): bool
     {
         return true;
     }

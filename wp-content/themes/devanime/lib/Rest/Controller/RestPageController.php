@@ -1,12 +1,12 @@
 <?php
 
-namespace DevAnime\Controller\Rest;
+namespace DevAnime\Rest\Controller;
 
 /**
  * Class PageRestController
- * @package DevAnime\Controller\Rest
+ * @package DevAnime\Rest\Controller
  */
-class PageFrontendRestController
+class RestPageController
 {
     public const REST_FIELD_TYPE = 'page';
     public const REST_FIELD_NAME = 'frontend';
@@ -16,19 +16,19 @@ class PageFrontendRestController
      */
     public function __construct()
     {
-        add_action('rest_api_init', [$this, 'convertShortcodesToJson']);
+        add_action('rest_api_init', [$this, 'registerFrontendField']);
     }
 
     /**
      * Registers the REST field for the specified post type.
      */
-    public function convertShortcodesToJson(): void
+    public function registerFrontendField(): void
     {
         register_rest_field(
             self::REST_FIELD_TYPE,
             self::REST_FIELD_NAME,
             [
-                'get_callback' => [$this, 'getFrontendField'],
+                'get_callback' => [$this, 'convertShortcodesToJson'],
                 'update_callback' => null,
                 'schema' => null,
             ]
@@ -44,7 +44,7 @@ class PageFrontendRestController
      *
      * @return mixed The formatted frontend field data.
      */
-    public function getFrontendField($object, $field_name, $request)
+    public function convertShortcodesToJson($object, $field_name, $request)
     {
         $data = $object['content']['raw'];
         return $this->parseNestedShortcodes($data);

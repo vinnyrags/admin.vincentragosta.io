@@ -28,15 +28,15 @@ class VcSingleImage extends \WPBakeryShortCode_VC_Single_image implements Regist
     {
         $settings['base'] = static::TAG;
         WPBakeryShortCode::__construct($settings); //avoids premature script registration in parent
-        $this->component_config = [
+        $this->componentConfig = [
             'icon' => 'icon-wpb-single-image',
             'category' => 'Content',
             'description' => 'Responsive image',
             'params' => array_merge([
                 [
-                    'type'        => 'textfield',
-                    'param_name'  => 'title',
-                    'heading'     => 'Title',
+                    'type' => 'textfield',
+                    'param_name' => 'title',
+                    'heading' => 'Title',
                     'description' => 'Used as the alt text for the image',
                     'admin_label' => true
                 ],
@@ -44,8 +44,8 @@ class VcSingleImage extends \WPBakeryShortCode_VC_Single_image implements Regist
                     'type' => 'dropdown',
                     'heading' => 'Image source',
                     'param_name' => 'source',
-                    'value'      => [
-                        'Media library'  => 'media_library',
+                    'value' => [
+                        'Media library' => 'media_library',
                         'Featured Image' => 'featured_image',
                         'Placeholder' => 'placeholder'
                     ],
@@ -53,20 +53,20 @@ class VcSingleImage extends \WPBakeryShortCode_VC_Single_image implements Regist
                     'description' => 'Select image source.',
                 ],
                 [
-                    'type'        => 'textfield',
-                    'heading'     => 'Placeholder Width',
-                    'param_name'  => 'placeholder_width',
-                    'edit_field_class'=> 'vc_col-xs-6',
+                    'type' => 'textfield',
+                    'heading' => 'Placeholder Width',
+                    'param_name' => 'placeholder_width',
+                    'edit_field_class' => 'vc_col-xs-6',
                     'dependency' => [
                         'element' => 'source',
                         'value' => 'placeholder'
                     ],
                 ],
                 [
-                    'type'        => 'textfield',
-                    'heading'     => 'Placeholder Height',
-                    'param_name'  => 'placeholder_height',
-                    'edit_field_class'=> 'vc_col-xs-6',
+                    'type' => 'textfield',
+                    'heading' => 'Placeholder Height',
+                    'param_name' => 'placeholder_height',
+                    'edit_field_class' => 'vc_col-xs-6',
                     'dependency' => [
                         'element' => 'source',
                         'value' => 'placeholder'
@@ -76,7 +76,7 @@ class VcSingleImage extends \WPBakeryShortCode_VC_Single_image implements Regist
                     'type' => 'dropdown',
                     'heading' => 'Placeholder Category',
                     'param_name' => 'placeholder_category',
-                    'edit_field_class'=> 'vc_col-xs-6',
+                    'edit_field_class' => 'vc_col-xs-6',
                     'value' => [
                         'All' => 'any',
                         'Animals' => 'animals',
@@ -94,7 +94,7 @@ class VcSingleImage extends \WPBakeryShortCode_VC_Single_image implements Regist
                     'type' => 'dropdown',
                     'heading' => 'Placeholder Filters',
                     'param_name' => 'placeholder_filters',
-                    'edit_field_class'=> 'vc_col-xs-6',
+                    'edit_field_class' => 'vc_col-xs-6',
                     'value' => [
                         'None' => '',
                         'Grayscale' => 'grayscale',
@@ -129,7 +129,7 @@ class VcSingleImage extends \WPBakeryShortCode_VC_Single_image implements Regist
                         'Center' => 'center',
                     ],
                     'std' => 'center',
-                    'group'       => 'Layout',
+                    'group' => 'Layout',
                 ],
                 [
                     'type' => 'vc_link',
@@ -156,25 +156,25 @@ class VcSingleImage extends \WPBakeryShortCode_VC_Single_image implements Regist
                     'description' => 'Style particular content element differently - add a class name and refer to it in custom CSS.',
                 ],
                 [
-                    'type'        => 'textfield',
-                    'heading'     => 'Image Width',
-                    'param_name'  => 'width',
-                    'group'       => 'Layout',
-                    'value'       => apply_filters('visual_composer/image_default_width', self::DEFAULT_WIDTH),
+                    'type' => 'textfield',
+                    'heading' => 'Image Width',
+                    'param_name' => 'width',
+                    'group' => 'Layout',
+                    'value' => apply_filters('visual_composer/image_default_width', self::DEFAULT_WIDTH),
                     'description' => 'Leave blank to auto-size from height',
                 ],
                 [
-                    'type'        => 'textfield',
-                    'heading'     => 'Image Height',
-                    'param_name'  => 'height',
-                    'group'       => 'Layout',
+                    'type' => 'textfield',
+                    'heading' => 'Image Height',
+                    'param_name' => 'height',
+                    'group' => 'Layout',
                     'description' => 'Leave blank to auto-size from width',
                 ],
                 [
-                    'type'        => 'textfield',
-                    'heading'     => 'Custom Styles',
-                    'param_name'  => 'custom_style',
-                    'group'       => 'Layout',
+                    'type' => 'textfield',
+                    'heading' => 'Custom Styles',
+                    'param_name' => 'custom_style',
+                    'group' => 'Layout',
                     'description' => 'eg: width: 300px;',
                 ],
                 [
@@ -191,11 +191,11 @@ class VcSingleImage extends \WPBakeryShortCode_VC_Single_image implements Regist
         ];
     }
 
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         $this->setupConfigBase();
         if ($additional_options = apply_filters('visual_composer/image_additional_options', [])) {
-            $this->component_config['params'][] = [
+            $this->componentConfig['params'][] = [
                 'type' => 'checkbox',
                 'param_name' => 'additional_options',
                 'heading' => 'Additional Options',
@@ -205,7 +205,7 @@ class VcSingleImage extends \WPBakeryShortCode_VC_Single_image implements Regist
         }
     }
 
-    protected function getResponsiveImageParams()
+    protected function getResponsiveImageParams(): array
     {
         $params = [];
         foreach ($this->enabled_breakpoints as $key => $value) {
