@@ -23,29 +23,13 @@ if (file_exists(__DIR__ . '/wp-content/vendor/autoload.php')) {
     require_once __DIR__ . '/wp-content/vendor/autoload.php';
 }
 
-// ** Database settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define( 'DB_NAME', 'local' );
+if (file_exists(__DIR__ . '/local-config.php')) {
+    include(__DIR__ . '/local-config.php');
+}
 
-/** Database username */
-define( 'DB_USER', 'root' );
-
-/** Database password */
-define( 'DB_PASSWORD', 'root' );
-
-/** Database hostname */
-define( 'DB_HOST', 'localhost' );
-
-/** Database charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8' );
-
-/** The database collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
-
-define('WP_SITEURL', 'http://vincent-ragosta.local/wp');
-define('WP_HOME', 'http://vincent-ragosta.local/');
-define('WP_CONTENT_DIR', __DIR__ . '/wp-content');
-define('WP_CONTENT_URL', 'http://vincent-ragosta.local/wp-content');
+if (class_exists('\DevAnime\Support\WPConfig')) {
+    new DevAnime\Support\WPConfig(__DIR__);
+}
 
 // Turn off Theme File Editor
 define( 'DISALLOW_FILE_EDIT', true );

@@ -62,5 +62,3 @@
   },
   "scripts": {}
 }
-
-git remote add deploy ssh://root@159.89.232.229/var/www/deploy
