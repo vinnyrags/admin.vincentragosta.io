@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78e4d5b595032069e66d1ed71d18ac43",
+    "content-hash": "174e480a12400cfb606f2ed7b54c8c58",
     "packages": [
         {
             "name": "composer/installers",
@@ -107,7 +107,7 @@
         },
         {
             "name": "devanime/advanced-custom-fields-pro",
-            "version": "dev-feature/6.2.7",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/devanime/advanced-custom-fields-pro.git",
@@ -144,7 +144,6 @@
                 "reference": "8be169f8f8c07e6d82e1d57e2545cdd2d0f4b939",
                 "shasum": ""
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "license": [
                 "GPL-3.0"
@@ -174,7 +173,6 @@
                 "composer/installers": "~1.0",
                 "php": ">=5.4"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "license": [
                 "GPL-3.0"
@@ -239,12 +237,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "fe1dd5c9fd30e189878d77f83c25c0cceb1d88d7"
+                "reference": "2f81a47ea56e7337dbd449c735a8689ac4d96277"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/fe1dd5c9fd30e189878d77f83c25c0cceb1d88d7",
-                "reference": "fe1dd5c9fd30e189878d77f83c25c0cceb1d88d7",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/2f81a47ea56e7337dbd449c735a8689ac4d96277",
+                "reference": "2f81a47ea56e7337dbd449c735a8689ac4d96277",
                 "shasum": ""
             },
             "require": {
@@ -280,7 +278,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2024-03-21T16:07:29+00:00"
+            "time": "2024-03-22T23:19:48+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",

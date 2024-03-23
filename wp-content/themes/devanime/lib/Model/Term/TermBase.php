@@ -8,7 +8,7 @@ namespace DevAnime\Model\Term;
  */
 class TermBase
 {
-    protected const TAXONOMY = null;
+    public const TAXONOMY = null;
     protected static array $defaultArgs = [];
     protected array $_fields = [];
     private ?\WP_Term $_term = null;

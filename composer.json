@@ -16,7 +16,7 @@
     },
     {
       "type": "composer",
-      "url": "https://packages.devanimecards.io"
+      "url": "https://packages.vincentragosta.io"
     }
   ],
   "config": {
@@ -42,7 +42,7 @@
     "wp-sync-db/wp-sync-db": "dev-master",
     "wp-sync-db/wp-sync-db-media-files": "dev-master",
     "devanime/wordpress-seo-premium": "*",
-    "devanime/advanced-custom-fields-pro": "dev-feature/6.2.7",
+    "devanime/advanced-custom-fields-pro": "dev-master",
     "devanime/visual-composer": "dev-main",
     "wpackagist-plugin/bu-versions": "*",
     "wpackagist-plugin/classic-editor": "*",
@@ -62,3 +62,5 @@
   },
   "scripts": {}
 }
+
+git remote add deploy ssh://root@159.89.232.229/var/www/deploy
