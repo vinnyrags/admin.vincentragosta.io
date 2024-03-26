@@ -1,6 +1,7 @@
 {
-  "name": "vincentragosta/devanime",
-  "description": "The parent theme used for all devanime projects.",
+  "name": "vincentragosta/vincentragosta",
+  "version": "1.0.0",
+  "description": "A platform build using decoupled frontend and backend. Visual Composer/ACF for backend + Vue frontend.",
   "authors": [
     {
       "name": "Vincent Ragosta",
