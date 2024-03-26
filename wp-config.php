@@ -27,10 +27,6 @@ if (file_exists(__DIR__ . '/local-config.php')) {
     include(__DIR__ . '/local-config.php');
 }
 
-//if (class_exists('\DevAnime\Support\WPConfig')) {
-//    new DevAnime\Support\WPConfig(__DIR__);
-//}
-
 // Turn off Theme File Editor
 define( 'DISALLOW_FILE_EDIT', true );
 define( 'DISALLOW_FILE_MODS', true );
