@@ -12,39 +12,36 @@ class WPConfig
     const ENV_STAGING = 'staging';
     const ENV_LOCAL = 'local';
     protected $path;
-    protected $serverName;
+//    protected $serverName;
     protected $environment;
-    protected $urlPrefix;
+//    protected $urlPrefix;
 
     public function __construct($path)
     {
-        $this->path = $path;
-        $this->serverName = $this->getServerName();
-        $this->defineConstant('ENVIRONMENT', $this->getEnvironment());
-        $this->environment = ENVIRONMENT;
-        $this->defineConstant('FORCE_HTTPS', ! $this->isLocal());
-        $this->urlPrefix = FORCE_HTTPS ? 'https://' : 'http://';
-        if (FORCE_HTTPS) {
-            $_SERVER['HTTPS'] = 'on';
-        }
-        $this->defineLicenseKeys();
-//        $this->setupWPRocket();
-        $this->setupWP();
-//        $this->setupRedis();
-        $this->defineConstant('GFORM_DISABLE_AUTO_UPDATE', true);
+//        $this->path = $path;
+//        $this->serverName = $this->getServerName();
+//        $this->defineConstant('ENVIRONMENT', $this->getEnvironment());
+//        $this->environment = ENVIRONMENT;
+//        $this->defineConstant('FORCE_HTTPS', !$this->isLocal());
+//        if (FORCE_HTTPS) {
+//            $_SERVER['HTTPS'] = 'on';
+//        }
+//        $this->defineLicenseKeys();
+//        $this->setupWP();
+//        $this->defineConstant('GFORM_DISABLE_AUTO_UPDATE', true);
     }
 
-    protected function defineLicenseKeys()
-    {
-        $keys_file = __DIR__ . '/license-keys.php';
-        if (!file_exists($keys_file)) {
-            return;
-        }
-        $keys = require_once $keys_file;
-        foreach ($keys as $name => $value) {
-            $this->defineConstant($name, $value);
-        }
-    }
+//    protected function defineLicenseKeys()
+//    {
+//        $keys_file = __DIR__ . '/license-keys.php';
+//        if (!file_exists($keys_file)) {
+//            return;
+//        }
+//        $keys = require_once $keys_file;
+//        foreach ($keys as $name => $value) {
+//            $this->defineConstant($name, $value);
+//        }
+//    }
 
 //    protected function setupWPRocket()
 //    {
@@ -75,38 +72,38 @@ class WPConfig
     {
 //        $this->defineConstant('AUTOMATIC_UPDATER_DISABLED');
 //        $this->defineConstant('DEVANIME_AUTOMATIC_UPDATER_HANDLER');
-        $this->defineConstant('WP_DISABLE_FATAL_ERROR_HANDLER');
-        if ($this->serverName) {
-            $this->defineConstant('WP_SITEURL', $this->urlPrefix . $this->serverName . '/wp');
-            $this->defineConstant('WP_HOME', $this->urlPrefix . $this->serverName . '/');
-            $this->defineConstant('WP_CONTENT_DIR', $this->path . '/wp-content');
-            $this->defineConstant('WP_CONTENT_URL', $this->urlPrefix . $this->serverName . '/wp-content');
-        }
-        if (! defined('DB_NAME')) {
-            $this->defineConstant('DB_NAME',getenv('DB_NAME'));
-        }
-        $this->defineConstant('DB_USER', getenv('DB_USER') ?: 'root');
-        $this->defineConstant('DB_PASSWORD', getenv('DB_PASSWORD') ?: '');
-        $this->defineConstant('DB_HOST', 'localhost');
+//        $this->defineConstant('WP_DISABLE_FATAL_ERROR_HANDLER');
+//        if ($this->serverName) {
+//            $this->defineConstant('WP_SITEURL', $this->urlPrefix . $this->serverName . '/wp');
+//            $this->defineConstant('WP_HOME', $this->urlPrefix . $this->serverName . '/');
+//            $this->defineConstant('WP_CONTENT_DIR', $this->path . '/wp-content');
+//            $this->defineConstant('WP_CONTENT_URL', $this->urlPrefix . $this->serverName . '/wp-content');
+//        }
+//        if (! defined('DB_NAME')) {
+//            $this->defineConstant('DB_NAME',getenv('DB_NAME'));
+//        }
+//        $this->defineConstant('DB_USER', getenv('DB_USER') ?: 'root');
+//        $this->defineConstant('DB_PASSWORD', getenv('DB_PASSWORD') ?: '');
+//        $this->defineConstant('DB_HOST', 'localhost');
     }
 
-    protected function getServerName()
-    {
-        return $_SERVER['SERVER_NAME'] ?? ($_SERVER['HTTP_HOST'] ?? false);
-    }
+//    protected function getServerName()
+//    {
+//        return $_SERVER['SERVER_NAME'] ?? ($_SERVER['HTTP_HOST'] ?? false);
+//    }
 
-    protected function getEnvironment()
-    {
-        if (strpos($this->serverName, '.dev') !== false) {
-            return self::ENV_STAGING;
-        } elseif (strpos($this->serverName, '.local') !== false) {
-            return self::ENV_LOCAL;
-        } elseif (empty($this->serverName)) {
-            return false;
-        } else {
-            return self::ENV_PROD;
-        }
-    }
+//    protected function getEnvironment()
+//    {
+//        if (strpos($this->serverName, '.dev') !== false) {
+//            return self::ENV_STAGING;
+//        } elseif (strpos($this->serverName, '.local') !== false) {
+//            return self::ENV_LOCAL;
+//        } elseif (empty($this->serverName)) {
+//            return false;
+//        } else {
+//            return self::ENV_PROD;
+//        }
+//    }
 
     protected function defineConstant($constant, $value = true)
     {
@@ -115,18 +112,18 @@ class WPConfig
         }
     }
 
-    protected function isProduction()
-    {
-        return $this->environment === self::ENV_PROD;
-    }
-
-    protected function isStaging()
-    {
-        return $this->environment === self::ENV_STAGING;
-    }
-
-    protected function isLocal()
-    {
-        return $this->environment === self::ENV_LOCAL;
-    }
+//    protected function isProduction()
+//    {
+//        return $this->environment === self::ENV_PROD;
+//    }
+//
+//    protected function isStaging()
+//    {
+//        return $this->environment === self::ENV_STAGING;
+//    }
+//
+//    protected function isLocal()
+//    {
+//        return $this->environment === self::ENV_LOCAL;
+//    }
 }
