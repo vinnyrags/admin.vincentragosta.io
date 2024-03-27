@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "174e480a12400cfb606f2ed7b54c8c58",
+    "content-hash": "d84d02f19818ce41d5a5e8a3895dc0f7",
     "packages": [
         {
             "name": "composer/installers",
@@ -237,12 +237,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "8e075f46a032af708e62a4b04a8809d0da023ca3"
+                "reference": "02a153599aff0b930e5cc2b42baef740e7874246"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/8e075f46a032af708e62a4b04a8809d0da023ca3",
-                "reference": "8e075f46a032af708e62a4b04a8809d0da023ca3",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/02a153599aff0b930e5cc2b42baef740e7874246",
+                "reference": "02a153599aff0b930e5cc2b42baef740e7874246",
                 "shasum": ""
             },
             "require": {
@@ -278,7 +278,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2024-03-23T14:31:15+00:00"
+            "time": "2024-03-26T21:46:21+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
