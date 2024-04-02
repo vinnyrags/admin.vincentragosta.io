@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6bb851fd4d7e443778f9c229e22c61ff",
+    "content-hash": "f874bda499e5771644a440d49fe27230",
     "packages": [
         {
             "name": "composer/installers",
@@ -390,6 +390,43 @@
             "time": "2024-01-16T15:14:12+00:00"
         },
         {
+            "name": "vinnyrags/devanime",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vinnyrags/devanime.git",
+                "reference": "aff5fe5f1764a6c07650b741012791b41123a428"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vinnyrags/devanime/zipball/aff5fe5f1764a6c07650b741012791b41123a428",
+                "reference": "aff5fe5f1764a6c07650b741012791b41123a428",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "type": "wordpress-theme",
+            "autoload": {
+                "psr-4": {
+                    "DevAnime\\": "lib/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Vincent Ragosta",
+                    "email": "vincentpasqualeragosta@gmail.com",
+                    "homepage": "https://www.vincentragosta.io"
+                }
+            ],
+            "description": "The parent theme used to start all new website builds.",
+            "support": {
+                "source": "https://github.com/vinnyrags/devanime/tree/main",
+                "issues": "https://github.com/vinnyrags/devanime/issues"
+            },
+            "time": "2024-04-02T05:37:03+00:00"
+        },
+        {
             "name": "vinnyrags/visual-composer",
             "version": "dev-main",
             "source": {
@@ -650,6 +687,7 @@
         "wp-sync-db/wp-sync-db": 20,
         "wp-sync-db/wp-sync-db-media-files": 20,
         "devanime/advanced-custom-fields-pro": 20,
+        "vinnyrags/devanime": 20,
         "vinnyrags/visual-composer": 20,
         "wp-sync-db/wp-sync-db-cli": 20
     },
