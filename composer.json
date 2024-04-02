@@ -44,7 +44,7 @@
     "wp-sync-db/wp-sync-db-media-files": "dev-master",
     "devanime/wordpress-seo-premium": "*",
     "devanime/advanced-custom-fields-pro": "dev-master",
-    "devanime/visual-composer": "dev-main",
+    "vinnyrags/visual-composer": "dev-main",
     "wpackagist-plugin/bu-versions": "*",
     "wpackagist-plugin/classic-editor": "*",
     "wpackagist-plugin/imagify": "*",

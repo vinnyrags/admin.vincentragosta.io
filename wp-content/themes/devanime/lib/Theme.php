@@ -44,6 +44,10 @@ class Theme
         foreach (apply_filters('devanime/controllers', $this->controllers) as $Controller) {
             new $Controller();
         }
+
+//        add_filter('devanime/blacklist', function ($components) {
+//            return array_merge($components, ['toggle_container', 'pricing_table', 'tabs', 'tab']);
+//        }, 10, 1);
     }
 
     protected function filterOverrides()
@@ -75,7 +79,7 @@ class Theme
         // add_filter('devanime/register_options/defaults', fn($options) => { return array_merge($options, []); });
         // add_filter('visual_composer/children/{{tag}}', fn($children) => { return array_merge($children, []); });
         // add_filter('visual_composer/button_styles', fn($styles) => { return array_merge($styles, []); });
-        // add_filter('visual_composer/{{tag}}_additional_options', fn($options) => { return array_merge($options, []); });
+        // add_filter('visual_composer/{{tag}}/additional_options', fn($options) => { return array_merge($options, []); });
         // add_filter('visual_composer/image_default_width', fn($width) => { return '768px'; });
         // add_filter('visual_composer/background_colors/{{tag}}', fn($colors) => { return array_merge($colors, []); });
         // add_filter('visual_composer/background_colors', fn($colors) => { return array_merge($colors, []); });

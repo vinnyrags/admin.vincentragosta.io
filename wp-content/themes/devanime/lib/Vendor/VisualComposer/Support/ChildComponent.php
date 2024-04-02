@@ -16,7 +16,7 @@ class ChildComponent extends Component
         parent::setupConfig();
         if ($this->parent !== null) {
             $this->componetConfig['as_child'] = ['only' => $this->parent];
-            add_filter('roronoa_zoro/children/' . $this->parent, fn($children) => [...$children, static::TAG]);
+            add_filter('visual_composer/children/' . $this->parent, fn($children) => [...$children, static::TAG]);
         }
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d84d02f19818ce41d5a5e8a3895dc0f7",
+    "content-hash": "6bb851fd4d7e443778f9c229e22c61ff",
     "packages": [
         {
             "name": "composer/installers",
@@ -131,31 +131,6 @@
             "time": "2024-03-22T04:35:09+00:00"
         },
         {
-            "name": "devanime/visual-composer",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/devanime/visual-composer.git",
-                "reference": "8be169f8f8c07e6d82e1d57e2545cdd2d0f4b939"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/devanime/visual-composer/zipball/8be169f8f8c07e6d82e1d57e2545cdd2d0f4b939",
-                "reference": "8be169f8f8c07e6d82e1d57e2545cdd2d0f4b939",
-                "shasum": ""
-            },
-            "type": "wordpress-plugin",
-            "license": [
-                "GPL-3.0"
-            ],
-            "description": "Copy of Visual Composer so we can use it in our composer infrastructure.",
-            "support": {
-                "source": "https://github.com/devanime/visual-composer/tree/main",
-                "issues": "https://github.com/devanime/visual-composer/issues"
-            },
-            "time": "2024-03-22T04:21:10+00:00"
-        },
-        {
             "name": "devanime/wordpress-seo-premium",
             "version": "dev-master",
             "source": {
@@ -237,12 +212,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "02a153599aff0b930e5cc2b42baef740e7874246"
+                "reference": "f987a935871b5417410b3fa8937d7464a01aaaf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/02a153599aff0b930e5cc2b42baef740e7874246",
-                "reference": "02a153599aff0b930e5cc2b42baef740e7874246",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/f987a935871b5417410b3fa8937d7464a01aaaf3",
+                "reference": "f987a935871b5417410b3fa8937d7464a01aaaf3",
                 "shasum": ""
             },
             "require": {
@@ -278,7 +253,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2024-03-26T21:46:21+00:00"
+            "time": "2024-04-01T21:02:55+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -415,6 +390,31 @@
             "time": "2024-01-16T15:14:12+00:00"
         },
         {
+            "name": "vinnyrags/visual-composer",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vinnyrags/visual-composer.git",
+                "reference": "23526983c57bc5daa6ce60fc06f07141c1dcd61e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vinnyrags/visual-composer/zipball/23526983c57bc5daa6ce60fc06f07141c1dcd61e",
+                "reference": "23526983c57bc5daa6ce60fc06f07141c1dcd61e",
+                "shasum": ""
+            },
+            "type": "wordpress-plugin",
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "Copy of Visual Composer so we can use it in our composer architecture.",
+            "support": {
+                "source": "https://github.com/vinnyrags/visual-composer/tree/main",
+                "issues": "https://github.com/vinnyrags/visual-composer/issues"
+            },
+            "time": "2024-03-31T03:42:04+00:00"
+        },
+        {
             "name": "wp-sync-db/wp-sync-db",
             "version": "dev-master",
             "source": {
@@ -526,15 +526,15 @@
         },
         {
             "name": "wpackagist-plugin/imagify",
-            "version": "2.2.0.1",
+            "version": "2.2.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/imagify/",
-                "reference": "tags/2.2.0.1"
+                "reference": "tags/2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/imagify.2.2.0.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/imagify.2.2.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -650,7 +650,7 @@
         "wp-sync-db/wp-sync-db": 20,
         "wp-sync-db/wp-sync-db-media-files": 20,
         "devanime/advanced-custom-fields-pro": 20,
-        "devanime/visual-composer": 20,
+        "vinnyrags/visual-composer": 20,
         "wp-sync-db/wp-sync-db-cli": 20
     },
     "prefer-stable": false,

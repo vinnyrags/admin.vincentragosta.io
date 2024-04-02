@@ -12,7 +12,7 @@ require_once vc_path_dir('SHORTCODES_DIR', 'vc-section.php');
 
 /**
  * Class VcSection
- * @package Theme\Components
+ * @package DevAnime\Vendor\VisualComposer\Components
  */
 class VcSection extends \WPBakeryShortCode_VC_Section implements RegistersComponentConfig
 {
@@ -34,21 +34,23 @@ class VcSection extends \WPBakeryShortCode_VC_Section implements RegistersCompon
             'icon' => 'vc_icon-vc-section',
             'wrapper_class' => 'clearfix',
             'is_container' => true,
-            'category' => 'Content',
+            'category' => 'Layout',
             'show_settings_on_create' => false,
             'class' => 'vc_main-sortable-element',
-            'as_parent' => array(
+            'js_view' => 'VcSectionView',
+            'weight' => 100,
+            'as_parent' => [
                 'only' => 'vc_row',
-            ),
-            'as_child' => array(
+            ],
+            'as_child' => [
                 'only' => '', // Only root
-            ),
+            ],
             'params' => [
                 [
                     'type' => 'el_id',
                     'heading' => 'Section ID',
                     'param_name' => 'el_id',
-                    'description' => 'Enter section ID (Note: make sure it is unique and valid according to <a href="http://www.w3schools.com/tags/att_global_id.asp" target="_blank">w3c specification</a>',
+                    'description' => 'Enter section ID (Note: make sure it is unique and valid according to <a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">w3c specification</a>',
                     'group' => 'General'
                 ],
                 [
@@ -160,7 +162,7 @@ class VcSection extends \WPBakeryShortCode_VC_Section implements RegistersCompon
     {
         $this->setupConfigBase();
         $this->applyBackgroundColorFilter();
-        if ($additional_options = apply_filters('visual_composer/section_additional_options', [])) {
+        if ($additional_options = apply_filters('visual_composer/section/additional-options', [])) {
             $this->componentConfig['params'][] = [
                 'type' => 'checkbox',
                 'param_name' => 'options',
@@ -168,6 +170,15 @@ class VcSection extends \WPBakeryShortCode_VC_Section implements RegistersCompon
                 'group' => 'Layout',
                 'value' => $additional_options
             ];
+        }
+        // eg: add_filter('visual_composer/section/param/column_layout', [$this, 'layoutTemplates']);
+        foreach ($this->componentConfig['params'] as $key => $param) {
+            if ($param['type'] === 'dropdown') {
+                $this->componentConfig['params'][$key]['value'] = apply_filters(
+                    'visual_composer/section/param/' . $param['param_name'],
+                    $param['value']
+                );
+            }
         }
     }
 }

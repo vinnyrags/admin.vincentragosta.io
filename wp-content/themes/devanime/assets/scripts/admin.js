@@ -28,13 +28,13 @@ jQuery(document).ready(function ($) {
             window.vcAdminPostTitle.__super__.changeShortcodeParams.call(this, model);
         }
     });
-    // window.vcLibraryOnEditPanelShown = function () {
-    //     $('.vc_deprecated_text').each(function () {
-    //         var $container = $(this);
-    //         var $input = $container.find('input');
-    //         if (!$input.val()) {
-    //             $container.remove();
-    //         }
-    //     });
-    // };
+    window.vcLibraryOnEditPanelShown = function () {
+        $('.vc_deprecated_text').each(function () {
+            var $container = $(this);
+            var $input = $container.find('input');
+            if (!$input.val()) {
+                $container.remove();
+            }
+        });
+    };
 });

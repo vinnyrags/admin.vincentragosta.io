@@ -256,8 +256,8 @@ trait BackgroundImageTrait
         $index = array_search('background_color', array_column($this->componentConfig['params'], 'param_name'));
         if ($index !== false) {
             $this->componentConfig['params'][$index]['value'] = apply_filters(
-                'roronoa_zoro/background_colors/' . static::TAG,
-                apply_filters('roronoa_zoro/background_colors', $this->componentConfig['params'][$index]['value'])
+                'visual_composer/background_colors/' . static::TAG,
+                apply_filters('visual_composer/background_colors', $this->componentConfig['params'][$index]['value'])
             );
         }
     }

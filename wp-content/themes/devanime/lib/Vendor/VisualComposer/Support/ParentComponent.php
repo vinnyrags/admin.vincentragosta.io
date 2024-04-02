@@ -14,7 +14,7 @@ class ParentComponent extends ComponentContainer
     protected function setupConfig(): void
     {
         parent::setupConfig();
-        $children = apply_filters('roronoa_zoro/children/' . static::TAG, $this->children);
+        $children = apply_filters('visual_composer/children/' . static::TAG, $this->children);
         $this->componentConfig['as_parent'] = ['only' => implode(',', $children)];
     }
 }
