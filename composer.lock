@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f874bda499e5771644a440d49fe27230",
+    "content-hash": "1e2586dac0a9534c3d97f813b38d1582",
     "packages": [
         {
             "name": "composer/installers",
@@ -106,60 +106,6 @@
             "time": "2015-02-18T17:17:01+00:00"
         },
         {
-            "name": "devanime/advanced-custom-fields-pro",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/devanime/advanced-custom-fields-pro.git",
-                "reference": "94272073c9b90cfbeda40874715acd468f968dc5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/devanime/advanced-custom-fields-pro/zipball/94272073c9b90cfbeda40874715acd468f968dc5",
-                "reference": "94272073c9b90cfbeda40874715acd468f968dc5",
-                "shasum": ""
-            },
-            "type": "wordpress-plugin",
-            "license": [
-                "GPL-3.0"
-            ],
-            "description": "Copy of ACF Pro so we can use it in our composer architecture.",
-            "support": {
-                "source": "https://github.com/devanime/advanced-custom-fields-pro/tree/feature/6.2.7",
-                "issues": "https://github.com/devanime/advanced-custom-fields-pro/issues"
-            },
-            "time": "2024-03-22T04:35:09+00:00"
-        },
-        {
-            "name": "devanime/wordpress-seo-premium",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/devanime/wordpress-seo-premium.git",
-                "reference": "7cd3263ee1ecb38ba36d61b15d2061b9653c65ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/devanime/wordpress-seo-premium/zipball/7cd3263ee1ecb38ba36d61b15d2061b9653c65ba",
-                "reference": "7cd3263ee1ecb38ba36d61b15d2061b9653c65ba",
-                "shasum": ""
-            },
-            "require": {
-                "composer/installers": "~1.0",
-                "php": ">=5.4"
-            },
-            "type": "wordpress-plugin",
-            "license": [
-                "GPL-3.0"
-            ],
-            "description": "Wordpress Premium SEO for all website builds.",
-            "support": {
-                "source": "https://github.com/devanime/wordpress-seo-premium/tree/develop",
-                "issues": "https://github.com/devanime/wordpress-seo-premium/issues"
-            },
-            "time": "2022-07-21T03:37:46+00:00"
-        },
-        {
             "name": "johnpbloch/wordpress",
             "version": "dev-master",
             "source": {
@@ -212,12 +158,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "f987a935871b5417410b3fa8937d7464a01aaaf3"
+                "reference": "896e84923a8b42caf48dbbd031324e067b4cd461"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/f987a935871b5417410b3fa8937d7464a01aaaf3",
-                "reference": "f987a935871b5417410b3fa8937d7464a01aaaf3",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/896e84923a8b42caf48dbbd031324e067b4cd461",
+                "reference": "896e84923a8b42caf48dbbd031324e067b4cd461",
                 "shasum": ""
             },
             "require": {
@@ -253,7 +199,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2024-04-01T21:02:55+00:00"
+            "time": "2024-04-02T19:31:15+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -390,22 +336,49 @@
             "time": "2024-01-16T15:14:12+00:00"
         },
         {
+            "name": "vinnyrags/advanced-custom-fields-pro",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vinnyrags/advanced-custom-fields-pro.git",
+                "reference": "dbfaa5eace8d40af662eeda13e3bfbc1e1871103"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vinnyrags/advanced-custom-fields-pro/zipball/dbfaa5eace8d40af662eeda13e3bfbc1e1871103",
+                "reference": "dbfaa5eace8d40af662eeda13e3bfbc1e1871103",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "wordpress-plugin",
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "Copy of ACF Pro so we can use it in our composer architecture.",
+            "support": {
+                "source": "https://github.com/vinnyrags/advanced-custom-fields-pro/tree/main",
+                "issues": "https://github.com/vinnyrags/advanced-custom-fields-pro/issues"
+            },
+            "time": "2024-04-03T03:10:08+00:00"
+        },
+        {
             "name": "vinnyrags/devanime",
             "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vinnyrags/devanime.git",
-                "reference": "aff5fe5f1764a6c07650b741012791b41123a428"
+                "reference": "a488fe80f17fb3aafa24002f7f2880a7210d8cba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vinnyrags/devanime/zipball/aff5fe5f1764a6c07650b741012791b41123a428",
-                "reference": "aff5fe5f1764a6c07650b741012791b41123a428",
+                "url": "https://api.github.com/repos/vinnyrags/devanime/zipball/a488fe80f17fb3aafa24002f7f2880a7210d8cba",
+                "reference": "a488fe80f17fb3aafa24002f7f2880a7210d8cba",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.2"
             },
+            "default-branch": true,
             "type": "wordpress-theme",
             "autoload": {
                 "psr-4": {
@@ -424,7 +397,7 @@
                 "source": "https://github.com/vinnyrags/devanime/tree/main",
                 "issues": "https://github.com/vinnyrags/devanime/issues"
             },
-            "time": "2024-04-02T05:37:03+00:00"
+            "time": "2024-04-03T04:30:28+00:00"
         },
         {
             "name": "vinnyrags/visual-composer",
@@ -440,6 +413,7 @@
                 "reference": "23526983c57bc5daa6ce60fc06f07141c1dcd61e",
                 "shasum": ""
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "license": [
                 "GPL-3.0"
@@ -450,6 +424,36 @@
                 "issues": "https://github.com/vinnyrags/visual-composer/issues"
             },
             "time": "2024-03-31T03:42:04+00:00"
+        },
+        {
+            "name": "vinnyrags/wordpress-seo-premium",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vinnyrags/wordpress-seo-premium.git",
+                "reference": "da0ed444cd7976c2c6fa60ecb7386d387ab860f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vinnyrags/wordpress-seo-premium/zipball/da0ed444cd7976c2c6fa60ecb7386d387ab860f1",
+                "reference": "da0ed444cd7976c2c6fa60ecb7386d387ab860f1",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "php": ">=8.2"
+            },
+            "default-branch": true,
+            "type": "wordpress-plugin",
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "Wordpress Premium SEO for all website builds.",
+            "support": {
+                "source": "https://github.com/vinnyrags/wordpress-seo-premium/tree/main",
+                "issues": "https://github.com/vinnyrags/wordpress-seo-premium/issues"
+            },
+            "time": "2024-04-03T03:44:57+00:00"
         },
         {
             "name": "wp-sync-db/wp-sync-db",
@@ -686,7 +690,8 @@
     "stability-flags": {
         "wp-sync-db/wp-sync-db": 20,
         "wp-sync-db/wp-sync-db-media-files": 20,
-        "devanime/advanced-custom-fields-pro": 20,
+        "vinnyrags/wordpress-seo-premium": 20,
+        "vinnyrags/advanced-custom-fields-pro": 20,
         "vinnyrags/devanime": 20,
         "vinnyrags/visual-composer": 20,
         "wp-sync-db/wp-sync-db-cli": 20

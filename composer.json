@@ -17,7 +17,7 @@
     },
     {
       "type": "composer",
-      "url": "https://packages.vincentragosta.io"
+      "url": "https://packages.vincentragosta.dev"
     }
   ],
   "config": {
@@ -42,8 +42,8 @@
     "roots/soil": "*",
     "wp-sync-db/wp-sync-db": "dev-master",
     "wp-sync-db/wp-sync-db-media-files": "dev-master",
-    "devanime/wordpress-seo-premium": "*",
-    "devanime/advanced-custom-fields-pro": "dev-master",
+    "vinnyrags/wordpress-seo-premium": "dev-main",
+    "vinnyrags/advanced-custom-fields-pro": "dev-main",
     "vinnyrags/devanime": "dev-main",
     "vinnyrags/visual-composer": "dev-main",
     "wpackagist-plugin/bu-versions": "*",
