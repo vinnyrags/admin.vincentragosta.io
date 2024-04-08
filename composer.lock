@@ -158,12 +158,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "896e84923a8b42caf48dbbd031324e067b4cd461"
+                "reference": "e29f3669c60bfc7ebf17955b50143157e7c31139"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/896e84923a8b42caf48dbbd031324e067b4cd461",
-                "reference": "896e84923a8b42caf48dbbd031324e067b4cd461",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/e29f3669c60bfc7ebf17955b50143157e7c31139",
+                "reference": "e29f3669c60bfc7ebf17955b50143157e7c31139",
                 "shasum": ""
             },
             "require": {
@@ -199,7 +199,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2024-04-02T19:31:15+00:00"
+            "time": "2024-04-04T19:01:56+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -367,12 +367,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vinnyrags/devanime.git",
-                "reference": "a488fe80f17fb3aafa24002f7f2880a7210d8cba"
+                "reference": "652435d349c2d8978a1ff8ebbdc3922c6d97dee4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vinnyrags/devanime/zipball/a488fe80f17fb3aafa24002f7f2880a7210d8cba",
-                "reference": "a488fe80f17fb3aafa24002f7f2880a7210d8cba",
+                "url": "https://api.github.com/repos/vinnyrags/devanime/zipball/652435d349c2d8978a1ff8ebbdc3922c6d97dee4",
+                "reference": "652435d349c2d8978a1ff8ebbdc3922c6d97dee4",
                 "shasum": ""
             },
             "require": {
@@ -397,7 +397,7 @@
                 "source": "https://github.com/vinnyrags/devanime/tree/main",
                 "issues": "https://github.com/vinnyrags/devanime/issues"
             },
-            "time": "2024-04-03T04:30:28+00:00"
+            "time": "2024-04-05T05:14:05+00:00"
         },
         {
             "name": "vinnyrags/visual-composer",

@@ -34,7 +34,8 @@
   },
   "autoload": {
     "psr-4": {
-      "DevAnime\\": "wp-content/themes/devanime/lib"
+      "DevAnime\\": "wp-content/themes/devanime/lib",
+      "ChildTheme\\": "wp-content/themes/vincentragosta/lib"
     }
   },
   "require": {
