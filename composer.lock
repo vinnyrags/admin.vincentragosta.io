@@ -367,12 +367,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vinnyrags/devanime.git",
-                "reference": "5c2e0ca9fca5dd33dacdc4b449233c190e7202a0"
+                "reference": "c33ba550701c7844c8819371107cffcc17dac37e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vinnyrags/devanime/zipball/5c2e0ca9fca5dd33dacdc4b449233c190e7202a0",
-                "reference": "5c2e0ca9fca5dd33dacdc4b449233c190e7202a0",
+                "url": "https://api.github.com/repos/vinnyrags/devanime/zipball/c33ba550701c7844c8819371107cffcc17dac37e",
+                "reference": "c33ba550701c7844c8819371107cffcc17dac37e",
                 "shasum": ""
             },
             "require": {
@@ -397,7 +397,7 @@
                 "source": "https://github.com/vinnyrags/devanime/tree/main",
                 "issues": "https://github.com/vinnyrags/devanime/issues"
             },
-            "time": "2024-04-09T03:46:40+00:00"
+            "time": "2024-04-09T04:31:00+00:00"
         },
         {
             "name": "vinnyrags/visual-composer",
