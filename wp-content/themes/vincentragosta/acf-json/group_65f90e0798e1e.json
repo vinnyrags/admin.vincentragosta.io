@@ -1137,62 +1137,6 @@
             ]
         },
         {
-            "key": "field_65f9e62b94f07",
-            "label": "Visual Composer",
-            "name": "",
-            "aria-label": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0
-        },
-        {
-            "key": "field_65f91fd7a8070",
-            "label": "Component Background Colors",
-            "name": "vc_component_bg_colors",
-            "aria-label": "",
-            "type": "select",
-            "instructions": "Select which colors appear as dropdown options for various Visual Composer components. Leave empty for all available colors.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "primary": "Primary",
-                "primary-light": "Primary Light",
-                "primary-dark": "Primary Dark",
-                "secondary": "Secondary",
-                "secondary-light": "Secondary Light",
-                "secondary-dark": "Secondary Dark",
-                "tertiary": "Tertiary",
-                "tertiary-light": "Tertiary Light",
-                "tertiary-dark": "Tertiary Dark",
-                "gray": "Gray",
-                "gray-light": "Gray Light",
-                "gray-dark": "Gray Dark",
-                "white": "White",
-                "off-white": "Off White",
-                "black": "Black"
-            },
-            "default_value": [],
-            "allow_null": 1,
-            "multiple": 1,
-            "ui": 1,
-            "ajax": 0,
-            "return_format": "value",
-            "placeholder": ""
-        },
-        {
             "key": "field_661499e1b8870",
             "label": "Menus",
             "name": "",
@@ -1212,7 +1156,7 @@
         {
             "key": "field_661499eab8871",
             "label": "Primary Navigation",
-            "name": "primary_navigation",
+            "name": "menu_primary_navigation",
             "aria-label": "",
             "type": "nav-menu",
             "instructions": "",
@@ -1227,7 +1171,7 @@
         {
             "key": "field_66149a22b8872",
             "label": "Footer Navigation",
-            "name": "footer_navigation",
+            "name": "menu_footer_navigation",
             "aria-label": "",
             "type": "nav-menu",
             "instructions": "",
@@ -1242,7 +1186,7 @@
         {
             "key": "field_66149a3cb8873",
             "label": "Additional Menus",
-            "name": "additional_menus",
+            "name": "menu_additional",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -1299,6 +1243,62 @@
                     "parent_repeater": "field_66149a3cb8873"
                 }
             ]
+        },
+        {
+            "key": "field_65f9e62b94f07",
+            "label": "Visual Composer",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_65f91fd7a8070",
+            "label": "Component Background Colors",
+            "name": "vc_component_bg_colors",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Select which colors appear as dropdown options for various Visual Composer components. Leave empty for all available colors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "primary": "Primary",
+                "primary-light": "Primary Light",
+                "primary-dark": "Primary Dark",
+                "secondary": "Secondary",
+                "secondary-light": "Secondary Light",
+                "secondary-dark": "Secondary Dark",
+                "tertiary": "Tertiary",
+                "tertiary-light": "Tertiary Light",
+                "tertiary-dark": "Tertiary Dark",
+                "gray": "Gray",
+                "gray-light": "Gray Light",
+                "gray-dark": "Gray Dark",
+                "white": "White",
+                "off-white": "Off White",
+                "black": "Black"
+            },
+            "default_value": [],
+            "allow_null": 1,
+            "multiple": 1,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
         }
     ],
     "location": [
@@ -1319,5 +1319,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1712626393
+    "modified": 1712631301
 }
